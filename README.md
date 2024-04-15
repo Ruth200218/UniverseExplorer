@@ -15,7 +15,7 @@ An interactive web application for exploring the solar system in 3D and creating
 Clone the project
 
 ```bash
-  git clone https://github.com/SantiagoCode/ghostly-action.git
+  git clone https://github.com/SantiagoCode/UniverseExplorer.git
 ```
 
 Go to the project directory
