@@ -1,11 +1,39 @@
-html, 
+@import 'variables';
+@import 'fonts';
+@import 'colors';
+@import 'helpers';
+
+html,
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	font-size: 62.5%;
+	box-sizing: border-box;
+
+	background-color: $empty;
+	color: $light;
 }
 
-body {
-    font-size: 62.5%;
-    box-sizing: border-box;
+.container {
+	min-width: 340px;
+	width: 80%;
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+.section {
+	padding: 0 2rem;
+	margin: 6rem 0;
+
+	&.hero {
+		margin-top: 0;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	// &.dashboard {}
 }
