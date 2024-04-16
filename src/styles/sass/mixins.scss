@@ -1,0 +1,21 @@
+@mixin planet($size, $color) {
+	width: $size;
+	height: $size;
+	border-radius: 100%;
+	border: 1px solid $light;
+	top: calc(50% - #{$size / 2});
+	left: calc(50% - #{$size / 2});
+	position: absolute;
+
+	&:after {
+		content: '';
+		position: absolute;
+		left: calc(50% - 5px);
+		top: -5px;
+		height: 10px;
+		width: 10px;
+		background-color: $color;
+		border-radius: 100%;
+		box-shadow: inset 0px -2px 2px $sun;
+	}
+}
