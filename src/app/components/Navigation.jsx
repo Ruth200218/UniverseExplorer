@@ -6,19 +6,10 @@ const Navigation = () => {
 			<div className='container flex'>
 				<ul className='left'>
 					<li>
-						<Link href='/documentation' target='_blank'>
-							Doc
-						</Link>
+						<Link href='/#hero'>Explore Universe</Link>
 					</li>
 					<li>
-						<Link href='https://github.com/SantiagoCode/UniverseExplorer' target='_blank'>
-							Repo
-						</Link>
-					</li>
-					<li>
-						<Link href='/contact' target='_blank'>
-							Contact
-						</Link>
+						<Link href='/#footer'>Contact Dev Team</Link>
 					</li>
 				</ul>
 				<ul className='right'>

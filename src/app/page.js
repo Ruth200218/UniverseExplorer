@@ -3,7 +3,7 @@ import { PrimaryBtn } from './components/Buttons';
 
 export default function Home() {
 	return (
-		<section>
+		<section id='hero'>
 			<div className='container'>
 				<Navigation />
 				<div className='hero section'>
@@ -13,7 +13,7 @@ export default function Home() {
 						them to create stunning exhibitions or even share them with your friends. <br /> Don't miss out, register now!
 					</h4>
 					<div className='buttons'>
-						<PrimaryBtn>Make your solar system</PrimaryBtn>
+						<PrimaryBtn>Make your solar system 🚀</PrimaryBtn>
 					</div>
 				</div>
 			</div>

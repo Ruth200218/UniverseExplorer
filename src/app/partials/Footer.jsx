@@ -5,7 +5,7 @@ import * as Icon from 'react-feather';
 
 const Footer = () => {
 	return (
-		<footer>
+		<footer id='footer'>
 			<div className='container'>
 				<div className='footer section'>
 					<div className='devs_container'>
