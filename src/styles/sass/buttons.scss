@@ -1,26 +1,78 @@
-.primary_btn {
-	background-color: $sun;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
+button {
+	transition: 0.2s;
+	&.primary_btn {
+		background-color: $sun;
+		color: $light;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	&.secondary_btn {
+		background-color: $wather;
+		color: $light;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	&.invisible_btn {
+		background-color: $empty;
+		color: $light;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	&:not(:first-child) {
+		margin-left: 1rem;
+	}
+
+	&:hover {
+		filter: brightness(0.8);
+		transform: scale(1.05);
+
+		&.primary_btn {
+			box-shadow: 0px 0px 8px $sun;
+		}
+		&.secondary_btn {
+			box-shadow: 0px 0px 8px $wather;
+		}
+		&.invisible_btn {
+			box-shadow: 0px 0px 8px $light;
+		}
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	& a:hover {
+		color: $light;
+	}
 }
 
-.secondary_btn {
-	background-color: $wather;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-}
+a {
+	color: $light;
+	text-decoration: none;
+	font-size: $heading-5;
+	font-weight: 300;
+	transition: 0.3s;
+	display: flex;
+	align-items: center;
 
-.invisible_btn {
-	background-color: $empty;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
+	svg {
+		margin-right: 0.5rem;
+	}
+
+	&:hover {
+		color: $sun;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
 }

@@ -18,16 +18,13 @@ body {
 }
 
 .navigation {
+	background-color: $wather;
 	position: fixed;
 	display: flex;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 100;
-
-	&.active {
-		background-color: $wather;
-	}
 
 	ul {
 		display: flex;
@@ -47,18 +44,6 @@ body {
 			list-style: none;
 			padding: 10px 15px;
 		}
-
-		a {
-			text-decoration: none;
-			color: $light;
-			font-size: $heading-5;
-			font-weight: 300;
-			transition: color 0.3s;
-
-			&:hover {
-				color: $sun;
-			}
-		}
 	}
 }
 
@@ -71,17 +56,9 @@ body {
 	margin: 0 auto;
 }
 
-.earth_model {
-	position: fixed;
-	top: 0;
-	left: 50%;
-	pointer-events: none;
-	filter: brightness(0.8);
-}
-
 .section {
 	padding: 0 2rem;
-	margin: 6rem 0;
+	margin: 6rem 0 0 0;
 
 	&.hero {
 		margin-top: 0;
@@ -103,37 +80,70 @@ body {
 		.buttons {
 			display: flex;
 			margin-top: 2rem;
+		}
+	}
 
-			button {
-				transition: 0.2s;
+	&.footer {
+		.devs_container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2rem;
+			justify-content: center;
 
-				&:not(:first-child) {
-					margin-left: 1rem;
+			@media (max-width: 1024px) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			@media (max-width: 768px) {
+				grid-template-columns: 1fr;
+			}
+
+			.developer {
+				position: relative;
+				padding: 4rem;
+				border: 1px solid white;
+				border-radius: 10px;
+				backdrop-filter: blur(8px);
+
+				.dev_name {
+					text-align: center;
 				}
 
-				&:hover {
-					filter: brightness(0.8);
-					transform: scale(1.05);
+				.dev_media {
+					display: flex;
+					justify-content: space-evenly;
+					margin-top: 3rem;
 
-					&.primary_btn {
-						box-shadow: 0px 0px 8px $sun;
+					a {
+						margin-right: 2rem;
 					}
-					&.secondary_btn {
-						box-shadow: 0px 0px 8px $wather;
-					}
-					&.invisible_btn {
-						box-shadow: 0px 0px 8px $light;
-					}
-				}
-
-				&:active {
-					transform: scale(0.95);
 				}
 			}
+		}
+
+		.copyright {
+			display: flex;
+			align-items: center;
+			justify-content: space-evenly;
+			margin-top: 6rem;
 		}
 	}
 
 	// &.dashboard {}
+}
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50vh;
+	z-index: 9;
+	position: relative;
+	background: $wather;
+	background: -moz-linear-gradient(0deg, $wather 0%, rgba(255, 255, 255, 0) 100%);
+	background: -webkit-linear-gradient(0deg, $wather 0%, rgba(255, 255, 255, 0) 100%);
+	background: linear-gradient(0deg, $wather 0%, rgba(255, 255, 255, 0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#ffffff",GradientType=1);
 }
 
 .solar_system_container {
@@ -196,4 +206,12 @@ body {
 			animation: rotate 18s linear infinite;
 		}
 	}
+}
+
+.earth_model {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	pointer-events: none;
+	filter: brightness(0.8);
 }

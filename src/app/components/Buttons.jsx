@@ -1,13 +1,13 @@
-const PrimaryBtn = ({ content, clases }) => {
-	return <button className={`primary_btn ${clases}`}>{content}</button>;
+const PrimaryBtn = ({ children, clases }) => {
+	return <button className={`primary_btn ${clases}`}>{children}</button>;
 };
 
-const SecondaryBtn = ({ content, clases }) => {
-	return <button className={`secondary_btn ${clases}`}>{content}</button>;
+const SecondaryBtn = ({ children, clases }) => {
+	return <button className={`secondary_btn ${clases}`}>{children}</button>;
 };
 
-const InvisibleBtn = ({ content, clases }) => {
-	return <button className={`invisible_btn ${clases}`}>{content}</button>;
+const InvisibleBtn = ({ children, clases }) => {
+	return <button className={`invisible_btn ${clases}`}>{children}</button>;
 };
 
 export { PrimaryBtn, SecondaryBtn, InvisibleBtn };
