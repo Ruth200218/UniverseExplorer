@@ -1,13 +1,9 @@
-'use client';
-
 import Navigation from './components/Navigation';
-import Spline from '@splinetool/react-spline';
 import { PrimaryBtn } from './components/Buttons';
 
 export default function Home() {
 	return (
 		<section>
-			<Earth />
 			<div className='container'>
 				<Navigation />
 				<div className='hero section'>
@@ -24,11 +20,3 @@ export default function Home() {
 		</section>
 	);
 }
-
-const Earth = () => {
-	return (
-		<div className='earth_model'>
-			<Spline scene='https://prod.spline.design/HSogvgERu9FSvxct/scene.splinecode' />
-		</div>
-	);
-};

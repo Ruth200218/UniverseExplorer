@@ -1,5 +1,6 @@
 import { Roboto } from 'next/font/google';
 import Footer from './partials/Footer';
+import Earth from './components/Earth';
 import '../styles/sass/global.scss';
 
 const roboto = Roboto({
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body className={roboto.className}>
+				<Earth />
 				{children}
 				<Footer />
 			</body>
