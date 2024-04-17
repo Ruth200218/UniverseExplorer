@@ -1,4 +1,5 @@
 import { Roboto } from 'next/font/google';
+import Footer from './partials/Footer';
 import '../styles/sass/global.scss';
 
 const roboto = Roboto({
@@ -14,7 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
-			<body className={roboto.className}>{children}</body>
+			<body className={roboto.className}>
+				{children}
+				<Footer />
+			</body>
 		</html>
 	);
 }
