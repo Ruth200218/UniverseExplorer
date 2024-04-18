@@ -174,67 +174,67 @@ footer {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#ffffff",GradientType=1);
 }
 
-.solar_system_container {
-	position: absolute;
-	width: 100%;
-	height: 100vh;
-	overflow: hidden;
-	pointer-events: none;
+// .solar_system_container {
+// 	position: absolute;
+// 	width: 100%;
+// 	height: 100vh;
+// 	overflow: hidden;
+// 	pointer-events: none;
 
-	.solar_system {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		margin: 0 auto;
-		overflow: hidden;
-		opacity: 0.5;
-		transform: skew(-10deg, -10deg) translate(25%, 0) scale(1.5);
+// 	.solar_system {
+// 		position: relative;
+// 		width: 100%;
+// 		height: 100%;
+// 		margin: 0 auto;
+// 		overflow: hidden;
+// 		opacity: 0.5;
+// 		transform: skew(-10deg, -10deg) translate(25%, 0) scale(1.5);
 
-		.sun {
-			width: 80px;
-			height: 80px;
-			top: calc(50% - 40px);
-			left: calc(50% - 40px);
-			border-radius: 100%;
-			background-color: $sun;
-			position: absolute;
-			filter: blur(16px);
-		}
+// 		.sun {
+// 			width: 80px;
+// 			height: 80px;
+// 			top: calc(50% - 40px);
+// 			left: calc(50% - 40px);
+// 			border-radius: 100%;
+// 			background-color: $sun;
+// 			position: absolute;
+// 			filter: blur(16px);
+// 		}
 
-		.mercury {
-			@include planet(100px, $mercury);
-			animation: rotate 4s linear infinite;
-		}
-		.venus {
-			@include planet(130px, $venus);
-			animation: rotate 6s linear infinite;
-		}
-		.earth {
-			@include planet(160px, $earth);
-			animation: rotate 8s linear infinite;
-		}
-		.mars {
-			@include planet(190px, $mars);
-			animation: rotate 10s linear infinite;
-		}
-		.jupiter {
-			@include planet(220px, $jupiter);
-			animation: rotate 12s linear infinite;
-		}
-		.saturn {
-			@include planet(250px, $saturn);
-			animation: rotate 14s linear infinite;
-		}
-		.uranus {
-			@include planet(280px, $uranus);
-			animation: rotate 16s linear infinite;
-		}
-		.neptune {
-			@include planet(310px, $neptune);
-			animation: rotate 18s linear infinite;
-		}
-	}
-}
+// 		.mercury {
+// 			@include planet(100px, $mercury);
+// 			animation: rotate 4s linear infinite;
+// 		}
+// 		.venus {
+// 			@include planet(130px, $venus);
+// 			animation: rotate 6s linear infinite;
+// 		}
+// 		.earth {
+// 			@include planet(160px, $earth);
+// 			animation: rotate 8s linear infinite;
+// 		}
+// 		.mars {
+// 			@include planet(190px, $mars);
+// 			animation: rotate 10s linear infinite;
+// 		}
+// 		.jupiter {
+// 			@include planet(220px, $jupiter);
+// 			animation: rotate 12s linear infinite;
+// 		}
+// 		.saturn {
+// 			@include planet(250px, $saturn);
+// 			animation: rotate 14s linear infinite;
+// 		}
+// 		.uranus {
+// 			@include planet(280px, $uranus);
+// 			animation: rotate 16s linear infinite;
+// 		}
+// 		.neptune {
+// 			@include planet(310px, $neptune);
+// 			animation: rotate 18s linear infinite;
+// 		}
+// 	}
+// }
 
 .earth_model {
 	position: fixed;
