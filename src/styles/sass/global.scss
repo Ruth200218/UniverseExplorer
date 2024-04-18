@@ -141,8 +141,8 @@ body {
 						justify-content: space-evenly;
 						margin-top: 3rem;
 
-						a {
-							margin-right: 2rem;
+						a:not(:first-child) {
+							margin-left: 2rem;
 						}
 					}
 				}
