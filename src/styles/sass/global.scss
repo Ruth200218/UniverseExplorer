@@ -90,65 +90,65 @@ body {
 		}
 	}
 
-	&.footer {
-		.devs_section {
-			h2 {
-				text-align: center;
-				margin-bottom: 5rem;
+	& .devs_section {
+		h2 {
+			text-align: center;
+			margin-bottom: 5rem;
+		}
+
+		.devs_container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2rem;
+			justify-content: center;
+
+			@media (max-width: 1024px) {
+				grid-template-columns: repeat(2, 1fr);
 			}
 
-			.devs_container {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 2rem;
-				justify-content: center;
+			@media (max-width: 768px) {
+				grid-template-columns: 1fr;
+			}
+			.developer {
+				position: relative;
+				padding: 4rem;
+				border: 1px solid white;
+				border-radius: 10px;
+				backdrop-filter: blur(12px);
+				display: flex;
+				flex-direction: column;
+				transition: 0.2s;
 
-				@media (max-width: 1024px) {
-					grid-template-columns: repeat(2, 1fr);
+				&:hover {
+					box-shadow: 0px 0px 16px white;
+					scale: 1.02;
 				}
 
-				@media (max-width: 768px) {
-					grid-template-columns: 1fr;
+				img {
+					border-radius: 100%;
+					margin: 0 auto 3rem;
 				}
-				.developer {
-					position: relative;
-					padding: 4rem;
-					border: 1px solid white;
-					border-radius: 10px;
-					backdrop-filter: blur(12px);
+
+				.dev_name,
+				.dev_position {
+					text-align: center;
+					margin: 0;
+				}
+
+				.dev_media {
 					display: flex;
-					flex-direction: column;
-					transition: 0.2s;
+					justify-content: space-evenly;
+					margin-top: 3rem;
 
-					&:hover {
-						box-shadow: 0px 0px 16px white;
-						scale: 1.02;
-					}
-
-					img {
-						border-radius: 100%;
-						margin: 0 auto 3rem;
-					}
-
-					.dev_name,
-					.dev_position {
-						text-align: center;
-						margin: 0;
-					}
-
-					.dev_media {
-						display: flex;
-						justify-content: space-evenly;
-						margin-top: 3rem;
-
-						a:not(:first-child) {
-							margin-left: 2rem;
-						}
+					a:not(:first-child) {
+						margin-left: 2rem;
 					}
 				}
 			}
 		}
+	}
 
+	&.footer {
 		.copyright {
 			display: flex;
 			align-items: center;
@@ -164,7 +164,7 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 50vh;
+	min-height: 25vh;
 	z-index: 9;
 	position: relative;
 	background: $wather;
