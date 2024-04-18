@@ -1,4 +1,5 @@
 import Navigation from './components/Navigation';
+import Link from 'next/link';
 import { PrimaryBtn } from './components/Buttons';
 
 export default function Home() {
@@ -13,7 +14,9 @@ export default function Home() {
 						them to create stunning exhibitions or even share them with your friends. <br /> Don't miss out, register now!
 					</h4>
 					<div className='buttons'>
-						<PrimaryBtn>Make your solar system 🚀</PrimaryBtn>
+						<PrimaryBtn>
+							<Link href='/dashboard'>Make your solar system 🚀</Link>
+						</PrimaryBtn>
 					</div>
 				</div>
 			</div>

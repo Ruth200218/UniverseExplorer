@@ -65,7 +65,7 @@ body {
 
 .section {
 	padding: 0 2rem;
-	margin: 6rem 0 0 0;
+	margin: 6rem 0;
 
 	&.hero {
 		margin-top: 0;
@@ -91,38 +91,59 @@ body {
 	}
 
 	&.footer {
-		.devs_container {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 2rem;
-			justify-content: center;
-
-			@media (max-width: 1024px) {
-				grid-template-columns: repeat(2, 1fr);
+		.devs_section {
+			h2 {
+				text-align: center;
+				margin-bottom: 5rem;
 			}
 
-			@media (max-width: 768px) {
-				grid-template-columns: 1fr;
-			}
+			.devs_container {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2rem;
+				justify-content: center;
 
-			.developer {
-				position: relative;
-				padding: 4rem;
-				border: 1px solid white;
-				border-radius: 10px;
-				backdrop-filter: blur(8px);
-
-				.dev_name {
-					text-align: center;
+				@media (max-width: 1024px) {
+					grid-template-columns: repeat(2, 1fr);
 				}
 
-				.dev_media {
+				@media (max-width: 768px) {
+					grid-template-columns: 1fr;
+				}
+				.developer {
+					position: relative;
+					padding: 4rem;
+					border: 1px solid white;
+					border-radius: 10px;
+					backdrop-filter: blur(12px);
 					display: flex;
-					justify-content: space-evenly;
-					margin-top: 3rem;
+					flex-direction: column;
+					transition: 0.2s;
 
-					a {
-						margin-right: 2rem;
+					&:hover {
+						box-shadow: 0px 0px 16px white;
+						scale: 1.02;
+					}
+
+					img {
+						border-radius: 100%;
+						margin: 0 auto 3rem;
+					}
+
+					.dev_name,
+					.dev_position {
+						text-align: center;
+						margin: 0;
+					}
+
+					.dev_media {
+						display: flex;
+						justify-content: space-evenly;
+						margin-top: 3rem;
+
+						a {
+							margin-right: 2rem;
+						}
 					}
 				}
 			}
