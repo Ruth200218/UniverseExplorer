@@ -1,4 +1,3 @@
-import Navigation from './components/Navigation';
 import Link from 'next/link';
 import { PrimaryBtn } from './components/Buttons';
 import DevelopersSection from './partials/DevelopersSection';
@@ -8,7 +7,6 @@ export default function Home() {
 		<>
 			<section id='hero'>
 				<div className='container'>
-					<Navigation />
 					<div className='hero section'>
 						<h1>Universe Explorer</h1>
 						<h4>
