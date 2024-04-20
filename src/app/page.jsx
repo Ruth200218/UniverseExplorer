@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { PrimaryBtn } from './components/Buttons';
-import DevelopersSection from './partials/DevelopersSection';
+import { PrimaryBtn } from '../components/Buttons';
+import DevelopersSection from '../partials/DevelopersSection';
 
 export default function Home() {
 	return (
