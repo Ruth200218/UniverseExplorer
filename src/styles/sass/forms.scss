@@ -10,6 +10,11 @@ form {
 	box-shadow: 0px 0px 4px white;
 	transition: 0.3s;
 
+	&:hover {
+		backdrop-filter: blur(16px);
+		box-shadow: 0px 0px 8px white;
+	}
+
 	h2 {
 		span {
 			color: $sun;
@@ -17,11 +22,6 @@ form {
 			font-weight: inherit;
 		}
 		margin: 0 auto 2rem;
-	}
-
-	&:hover {
-		backdrop-filter: blur(16px);
-		box-shadow: 0px 0px 8px white;
 	}
 
 	@media (min-width: 1024px) {
