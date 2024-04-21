@@ -12,6 +12,7 @@ export default function Register() {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [error, setError] = useState('');
+	const invalidPassword = password !== confirmPassword;
 
 	const router = useRouter();
 
@@ -72,21 +73,23 @@ export default function Register() {
 							</label>
 							<input required type='email' onChange={(e) => setEmail(e.target.value)} placeholder='jhondue@gmail.com' name='email' />
 						</div>
-						<div className='input_item'>
-							<label>
-								Password <span>*</span>
-							</label>
-							<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
-						</div>
-						<div className='input_item'>
-							<label>
-								Confirm password <span>*</span>
-							</label>
-							<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
-							{confirmPassword !== '' && password !== confirmPassword && <p className='warning'>Passwords not matching.</p>}
+						<div className='half'>
+							<div className='input_item'>
+								<label>
+									Password <span>*</span>
+								</label>
+								<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
+							</div>
+							<div className='input_item'>
+								<label>
+									Confirm password <span>*</span>
+								</label>
+								<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
+								{invalidPassword && <p className='warning'>Passwords not matching.</p>}
+							</div>
 						</div>
 
-						<PrimaryBtn clases={`submit`} disabled={password !== confirmPassword ? true : false}>
+						<PrimaryBtn clases={`submit`} disabled={invalidPassword || password == '' ? true : false}>
 							SignUp
 						</PrimaryBtn>
 					</form>
