@@ -36,7 +36,7 @@ export default function Register() {
 			if (signUpResponse.ok) {
 				//Automatic login
 				toast.dismiss(toastLoading);
-				const toastSuccess = toast.success(successMessage, { duration: 4000, position: 'bottom-right' });
+				toast.success(successMessage, { duration: 4000, position: 'bottom-right' });
 				router.push('/');
 				router.refresh();
 			} else {
@@ -49,7 +49,7 @@ export default function Register() {
 			}
 		} catch (error) {
 			toast.dismiss(toastLoading);
-			const toastError = toast.error(errorMessage(error.message), { duration: 4000, position: 'bottom-right' });
+			toast.error(errorMessage(error.message), { duration: 4000, position: 'bottom-right' });
 			setError(error.message);
 		}
 	};
