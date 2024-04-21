@@ -11,7 +11,11 @@
   "dependencies": {
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^1.0.99",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^8.3.2",
     "next": "14.2.1",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
     "react-feather": "^2.0.10"
