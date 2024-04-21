@@ -14,6 +14,7 @@ export default class Planet {
       const material = new THREE.MeshBasicMaterial({ map: texture });
       this.mesh = new THREE.Mesh(geometry, material);
       this.mesh.position.x += this.positionX;
+      this.mesh.name = "planet";
     }
     return this.mesh;
   }
