@@ -1,8 +1,8 @@
 import { Roboto } from 'next/font/google';
-import Footer from './partials/Footer';
-import Earth from './components/Earth';
+import Footer from '../partials/Footer';
+import Earth from '../components/Earth';
 import '../styles/sass/global.scss';
-import Navigation from './components/Navigation';
+import Navigation from '../components/Navigation';
 
 const roboto = Roboto({
 	weight: ['300', '400', '500', '700'],
