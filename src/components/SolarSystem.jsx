@@ -131,7 +131,6 @@ export default function SolarSystem() {
 			//setStopOrbitRotation(true);
 		})
 
-	
 		const animate = () => {
 			sunMesh.rotation.y += 2 * Math.PI * (1 / 60) * (1 / 60);
 			systemPlanets.forEach((planet) => {
