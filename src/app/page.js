@@ -16,9 +16,9 @@ export default function Home() {
 							them to create stunning exhibitions or even share them with your friends. <br /> Don't miss out, register now!
 						</h4>
 						<div className='buttons'>
-							<PrimaryBtn>
-								<Link href='/dashboard'>Make your solar system 🚀</Link>
-							</PrimaryBtn>
+							<Link href='/dashboard'>
+								<PrimaryBtn>Make your solar system 🚀</PrimaryBtn>
+							</Link>
 						</div>
 					</div>
 				</div>
