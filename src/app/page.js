@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import Earth from '../components/Earth';
 import { PrimaryBtn } from '../components/Buttons';
 import DevelopersSection from '../partials/DevelopersSection';
 
 export default function Home() {
 	return (
 		<>
+			<Earth />
 			<section id='hero'>
 				<div className='container'>
 					<div className='hero section'>

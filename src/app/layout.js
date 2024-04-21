@@ -1,6 +1,5 @@
 import { Roboto } from 'next/font/google';
 import Footer from '../partials/Footer';
-import Earth from '../components/Earth';
 import '../styles/sass/global.scss';
 import Navigation from '../components/Navigation';
 
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
 		<html lang='en'>
 			<body className={roboto.className}>
 				<Navigation />
-				<Earth />
 				{children}
 				<Footer />
 			</body>
