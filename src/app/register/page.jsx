@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import Earth from '../../components/Earth';
 import { PrimaryBtn } from '../../components/Buttons';
 import toast, { Toaster } from 'react-hot-toast';
-import * as Icon from 'react-feather';
 
 export default function Register() {
 	const [first_name, setFirstName] = useState('');
