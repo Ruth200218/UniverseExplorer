@@ -1,15 +1,17 @@
 form {
+	h2 {
+		margin: 0 auto 2rem;
+	}
+
 	display: flex;
 	flex-direction: column;
 	align-content: center;
 	justify-content: center;
-
 	border: 1px solid white;
 	padding: 6rem 4rem;
 	border-radius: 10px;
 	backdrop-filter: blur(12px);
 	box-shadow: 0px 0px 4px white;
-
 	transition: 0.3s;
 
 	&:hover {
@@ -17,7 +19,6 @@ form {
 		box-shadow: 0px 0px 8px white;
 	}
 
-	//media query min 1024px
 	@media (min-width: 1024px) {
 		.half {
 			width: 100%;
@@ -56,11 +57,7 @@ form {
 
 			&:focus {
 				outline: none;
-				border: 1px solid #333;
-			}
-
-			&.error {
-				border: 1px solid red;
+				border: 1px solid $sun;
 			}
 		}
 

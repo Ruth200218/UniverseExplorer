@@ -51,7 +51,7 @@ export default function Register() {
 				<div className='signup section'>
 					<form onSubmit={handleSubmit}>
 						{error && <div>{error}</div>}
-						<h3>SignUp</h3>
+						<h2>SignUp</h2>
 						<div className='half'>
 							<div className='input_item'>
 								<label>
