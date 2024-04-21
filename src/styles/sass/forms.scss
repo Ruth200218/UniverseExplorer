@@ -52,17 +52,18 @@ form {
 			span {
 				color: $sun;
 			}
-		}
 
-		input {
-			padding: 10px;
-			margin: 5px 0;
-			border: 1px solid #ccc;
-			border-radius: 4px;
+			input {
+				padding: 10px;
+				margin: 5px 0;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				width: -webkit-fill-available;
 
-			&:focus {
-				outline: none;
-				border: 1px solid $sun;
+				&:focus {
+					outline: none;
+					border: 1px solid $sun;
+				}
 			}
 		}
 

@@ -17,9 +17,22 @@ export default function Register() {
 
 	const router = useRouter();
 
-	const loadingMessage = <span>Loading...</span>;
-	const successMessage = <span>Great! You have been registered successfully!</span>;
-	const errorMessage = (message) => <span>An error has occurred: {message}</span>;
+	const loadingMessage = (
+		<div style={{ display: 'block' }}>
+			<p style={{ margin: 0, lineHeight: '1.4rem' }}>Loading...</p>
+		</div>
+	);
+	const successMessage = (
+		<div style={{ display: 'block' }}>
+			<p style={{ margin: 0, lineHeight: '1.4rem' }}>Great! You have been registered successfully!</p>
+		</div>
+	);
+	const errorMessage = (message) => (
+		<div style={{ display: 'block' }}>
+			<p style={{ margin: 0, lineHeight: '1.4rem' }}>An error has occurred: </p>
+			<p style={{ margin: 0, lineHeight: '1.4rem' }}>{message}</p>
+		</div>
+	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -66,35 +79,45 @@ export default function Register() {
 						<div className='half'>
 							<div className='input_item'>
 								<label>
-									Name <span>*</span>
+									<div>
+										Name <span>*</span>
+									</div>
+									<input required onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='Jhon' name='first_name' />
 								</label>
-								<input required onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='Jhon' name='first_name' />
 							</div>
 							<div className='input_item'>
 								<label>
-									Last Name <span>*</span>
+									<div>
+										Last Name <span>*</span>
+									</div>
+									<input required onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Due' name='last_name' />
 								</label>
-								<input required onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Due' name='last_name' />
 							</div>
 						</div>
 						<div className='input_item'>
 							<label>
-								Email <span>*</span>
+								<div>
+									Email <span>*</span>
+								</div>
+								<input required type='email' onChange={(e) => setEmail(e.target.value)} placeholder='jhondue@gmail.com' name='email' />
 							</label>
-							<input required type='email' onChange={(e) => setEmail(e.target.value)} placeholder='jhondue@gmail.com' name='email' />
 						</div>
 						<div className='half'>
 							<div className='input_item'>
 								<label>
-									Password <span>*</span>
+									<div>
+										Password <span>*</span>
+									</div>
+									<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
 								</label>
-								<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
 							</div>
 							<div className='input_item'>
 								<label>
-									Confirm password <span>*</span>
+									<div>
+										Confirm password <span>*</span>
+									</div>
+									<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
 								</label>
-								<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
 								{invalidPassword && <p className='warning'>Passwords not matching.</p>}
 							</div>
 						</div>
