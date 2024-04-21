@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Earth from '../../components/Earth';
 import { PrimaryBtn } from '../../components/Buttons';
 import toast, { Toaster } from 'react-hot-toast';
+import * as Icon from 'react-feather';
 
 export default function Register() {
 	const [first_name, setFirstName] = useState('');
@@ -17,9 +18,13 @@ export default function Register() {
 
 	const router = useRouter();
 
+	const loadingMessage = <span>Loading...</span>;
+	const successMessage = <span>Great! You have been registered successfully!</span>;
+	const errorMessage = (message) => <span>An error has occurred: {message}</span>;
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const toastLoading = toast.loading('Loading...', { position: 'bottom-right' }, { style: (fontSize = '24px') });
+		const toastLoading = toast.loading(loadingMessage, { position: 'bottom-right' });
 		try {
 			const signUpResponse = await fetch('http://localhost:3000/api/auth/signup', {
 				method: 'POST',
@@ -32,7 +37,7 @@ export default function Register() {
 			if (signUpResponse.ok) {
 				//Automatic login
 				toast.dismiss(toastLoading);
-				const toastSuccess = toast.success('Great! You have been registered successfully!', { duration: 4000, position: 'bottom-right' });
+				const toastSuccess = toast.success(successMessage, { duration: 4000, position: 'bottom-right' });
 				router.push('/');
 				router.refresh();
 			} else {
@@ -45,7 +50,7 @@ export default function Register() {
 			}
 		} catch (error) {
 			toast.dismiss(toastLoading);
-			const toastError = toast.error(`An error has occurred: ${error.message}`, { duration: 4000, position: 'bottom-right' });
+			const toastError = toast.error(errorMessage(error.message), { duration: 4000, position: 'bottom-right' });
 			setError(error.message);
 		}
 	};
