@@ -6,8 +6,8 @@ import DevelopersSection from '../partials/DevelopersSection';
 export default function Home() {
 	return (
 		<>
+			<Earth />
 			<section id='hero'>
-				<Earth />
 				<div className='container'>
 					<div className='hero section'>
 						<h1>Universe Explorer</h1>

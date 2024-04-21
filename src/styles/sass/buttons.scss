@@ -27,6 +27,11 @@ button {
 		cursor: pointer;
 	}
 
+	&:disabled {
+		filter: brightness(0.6);
+		cursor: not-allowed;
+	}
+
 	&:not(:first-child) {
 		margin-left: 1rem;
 	}
