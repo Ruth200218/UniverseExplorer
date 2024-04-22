@@ -5,6 +5,7 @@
 @import 'mixins';
 @import 'buttons';
 @import 'helpers';
+@import 'forms';
 
 html,
 body {
@@ -14,6 +15,11 @@ body {
 	padding: 0;
 	font-size: 62.5%;
 	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
 
 	background-color: $empty;
 	color: $light;
@@ -65,7 +71,7 @@ body {
 
 .section {
 	padding: 0 2rem;
-	margin: 6rem 0;
+	margin: 0;
 
 	&.hero {
 		margin-top: 0;
@@ -115,12 +121,14 @@ body {
 				border: 1px solid white;
 				border-radius: 10px;
 				backdrop-filter: blur(12px);
+				box-shadow: 0px 0px 4px white;
 				display: flex;
 				flex-direction: column;
 				transition: 0.2s;
 
 				&:hover {
-					box-shadow: 0px 0px 16px white;
+					backdrop-filter: blur(16px);
+					box-shadow: 0px 0px 8px white;
 					scale: 1.02;
 				}
 
@@ -148,6 +156,13 @@ body {
 		}
 	}
 
+	&.signup {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: 100vh;
+	}
+
 	&.footer {
 		.copyright {
 			display: flex;
@@ -165,7 +180,7 @@ footer {
 	align-items: center;
 	justify-content: center;
 	min-height: 25vh;
-	z-index: 9;
+	z-index: 99;
 	position: relative;
 	background: $wather;
 	background: -moz-linear-gradient(0deg, $wather 0%, rgba(255, 255, 255, 0) 100%);
@@ -234,6 +249,15 @@ footer {
 // 			animation: rotate 18s linear infinite;
 // 		}
 // 	}
+// }
+
+// #planets-list {
+// 	z-index: 10;
+// 	position: fixed;
+// 	bottom: 0;
+// 	width: 100%;
+// 	display: flex;
+// 	background: #fff;
 // }
 
 .earth_model {

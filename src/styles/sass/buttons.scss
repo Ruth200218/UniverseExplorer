@@ -1,5 +1,14 @@
 button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	transition: 0.2s;
+
+	svg {
+		margin-right: 0.5rem;
+	}
+
 	&.primary_btn {
 		background-color: $sun;
 		color: $light;
@@ -25,6 +34,11 @@ button {
 		padding: 10px 20px;
 		border-radius: 5px;
 		cursor: pointer;
+	}
+
+	&:disabled {
+		filter: brightness(0.6);
+		cursor: not-allowed;
 	}
 
 	&:not(:first-child) {

@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import Earth from '../components/Earth';
 import { PrimaryBtn } from '../components/Buttons';
 import DevelopersSection from '../partials/DevelopersSection';
 
 export default function Home() {
 	return (
 		<>
+			<Earth />
 			<section id='hero'>
 				<div className='container'>
 					<div className='hero section'>
@@ -14,9 +16,9 @@ export default function Home() {
 							them to create stunning exhibitions or even share them with your friends. <br /> Don't miss out, register now!
 						</h4>
 						<div className='buttons'>
-							<PrimaryBtn>
-								<Link href='/dashboard'>Make your solar system 🚀</Link>
-							</PrimaryBtn>
+							<Link href='/dashboard'>
+								<PrimaryBtn>Make your solar system 🚀</PrimaryBtn>
+							</Link>
 						</div>
 					</div>
 				</div>
