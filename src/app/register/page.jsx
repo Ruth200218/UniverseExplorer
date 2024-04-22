@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
@@ -27,10 +28,17 @@ export default function Register() {
             );
 
             if (signUpResponse.ok) {
-                //Automatic login
 
-                router.push("/");
-                router.refresh();
+                const res = await signIn("credentials", {
+                    email: email,
+                    password: password,
+                    redirect: false,
+                });
+
+                if (res.ok) {
+                    router.push("/dashboard");
+                    router.refresh();
+                }
             } else {
                 const errorData = await signUpResponse.json();
                 if (errorData.erros) {

@@ -3,6 +3,7 @@ import Footer from '../partials/Footer';
 import Earth from '../components/Earth';
 import '../styles/sass/global.scss';
 import Navigation from '../components/Navigation';
+import Providers from './providers'
 
 const roboto = Roboto({
 	weight: ['300', '400', '500', '700'],
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
 			<body className={roboto.className}>
 				<Navigation />
 				<Earth />
-				{children}
+				<Providers>
+					{children}
+				</Providers>
 				<Footer />
 			</body>
 		</html>
