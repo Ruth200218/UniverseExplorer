@@ -13,6 +13,10 @@ export default class SceneInit {
     this.rayCaster = null;
     this.INTERSECTED = null;
     this.pointer = null;
+    this.initialDistance = 20;
+    this.initialX = null;
+    this.initialY = null;
+    this.sunInitialDistance = 128;
   }
 
   initScene(setStopOrbitRotation, element) {
@@ -24,10 +28,12 @@ export default class SceneInit {
     );
     this.camera.position.z = 128;
 
+    this.camera.enableDamping = true;
+
     this.scene = new THREE.Scene();
 
     this.rayCaster = new THREE.Raycaster();
-		this.pointer = new THREE.Vector2();
+    this.pointer = new THREE.Vector2();
 
     // const spaceTexture = new THREE.TextureLoader().load("space2.jpeg");
     // this.scene.background = spaceTexture;
@@ -48,72 +54,91 @@ export default class SceneInit {
 
     // this.stats = Stats();
     // document.body.appendChild(this.stats.dom);
+    this.renderer.domElement.addEventListener('click', (event) => this.onPointerClick(event, setStopOrbitRotation), false);
+    this.renderer.domElement.addEventListener('wheel', (event) => this.onWheel(event), false);
+    this.renderer.domElement.addEventListener('scroll', (event) => this.onWheel(event), false);
 
-    document.addEventListener( 'click', (event) => this.onPointerClick(event, setStopOrbitRotation), false);
-    document.addEventListener( 'mousemove', (event) => this.onPointerMove(event, setStopOrbitRotation), false);
+    //this.renderer.domElement.addEventListener('mousedown', (event) => this.onMouseDown(event, setStopOrbitRotation), false);
+    //this.renderer.domElement.addEventListener('mouseup', (event) => this.onMouseUp(event, setStopOrbitRotation), false);
+    //this.renderer.domElement.addEventListener('mousemove', (event) => this.onMove(event), false);
+
     // if window resizes
     window.addEventListener("resize", () => this.onWindowResize(), false);
   }
 
-  onPointerMove( event, setStopOrbitRotation ) {
-    this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  // onMouseDown(event, setStopOrbitRotation) {
+  //   if (this.INTERSECTED) {
+  //     setStopOrbitRotation(true)
+  //   }
+  // }
+
+  // onMouseUp(event, setStopOrbitRotation) {
+  //   setStopOrbitRotation(false)
+  // }
+
+  onWheel(event) {
+    event.preventDefault();
+    const delta = Math.sign(event.deltaY);
+    this.initialDistance += delta;
+  }
+
+  selectPlanet(planetName) {
+    const planet = this.scene.getObjectByName('planet_' + planetName);
+    this.INTERSECTED = planet;
+    this.updateCamera(planet);
+  }
+
+  onPointerClick(event, setStopOrbitRotation) {
+    event.stopPropagation()
+
+    const closest = event.target === this.renderer.domElement;
+    if (!closest) return;
+
+    this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+    this.pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
     this.rayCaster.setFromCamera(this.pointer, this.camera);
 
     const intersects = this.rayCaster.intersectObjects(this.scene.children, true);
 
     if (intersects.length > 0) {
-        for (let i = 0; i < intersects.length; i++) {
-            const object = intersects[i].object;
-            if(!this.INTERSECTED) {
-              if(object instanceof THREE.Mesh && object.parent instanceof THREE.Group && object.name == "planet" && i == intersects.length - 1) {
-                setStopOrbitRotation(true);
-              }else {
-                setStopOrbitRotation(false);
-              }
-            }
+      for (let i = 0; i < intersects.length; i++) {
+        const object = intersects[i].object;
+        if (object instanceof THREE.Mesh && object.parent instanceof THREE.Group && object.name.includes('planet') && i == intersects.length - 1) {
+          this.INTERSECTED = object;
+          //this.updateCamera(this.INTERSECTED)
+          //setStopOrbitRotation(true);
         }
+      }
     }
   }
 
-  onPointerClick( event, setStopOrbitRotation ) {
-    event.stopPropagation()
-    this.pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    this.pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  planetPosition(planetMesh) {
+    const planetPosition = new THREE.Vector3();
+    planetPosition.setFromMatrixPosition(planetMesh.matrixWorld);
+    return planetPosition;
+  }
 
-    this.rayCaster.setFromCamera(this.pointer, this.camera);
-
-    const intersects = this.rayCaster.intersectObjects(this.scene.children, true);
-
-    if (intersects.length > 0) {
-        for (let i = 0; i < intersects.length; i++) {
-            const object = intersects[i].object;
-            if(object instanceof THREE.Mesh && object.parent instanceof THREE.Group && object.name == "planet" && i == intersects.length - 1) {
-              this.INTERSECTED = object;
-              //this.updateCamera(this.INTERSECTED)
-              //setStopOrbitRotation(true);
-            }
-        }
-    }
+  planetTargetPosition(planetMesh) {
+    const planetPosition = this.planetPosition(planetMesh);
+    const targetPosition = planetPosition.clone().add(new THREE.Vector3(0, 0, this.initialDistance))
+    return { targetPosition, planetPosition };
   }
 
   updateCamera(planetMesh, controls = false) {
     if (planetMesh) {
-      const planetPosition = new THREE.Vector3();
-      planetPosition.setFromMatrixPosition(planetMesh.matrixWorld);
+      const planetPosition = this.planetPosition(planetMesh);
 
-      const calculatedDistance = planetMesh.geometry.parameters.radius + 20;
-      const targetPosition = planetPosition.clone().add(new THREE.Vector3(0, 12, calculatedDistance)); 
+      planetPosition.y += 1;
 
-      this.camera.position.lerp(targetPosition, 0.1);
-      this.camera.lookAt(planetPosition);
+      const currentDistance = this.camera.position.distanceTo(planetPosition);
+      const scale = this.initialDistance / currentDistance;
 
+      this.camera.position.sub(planetPosition).multiplyScalar(scale).add(planetPosition);
 
-      this.controls.enabled = controls;
-
-      this.controls.target = planetPosition;
+      this.controls.target = planetPosition
       this.controls.update();
-      //this.INTERSECTED = null;
+      this.camera.lookAt(planetPosition);
     }
   }
 

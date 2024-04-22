@@ -1,7 +1,12 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier"],
+  "extends": "airbnb",
+  // no ; at the end of the line
   "rules": {
-    "prettier/prettier": "error"
+    "semi": [
+      "error",
+      "never"
+    ],
+    // no console.log
+    "no-console": 0
   }
 }
