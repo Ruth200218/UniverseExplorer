@@ -39,8 +39,8 @@ export default function Page() {
 					'name': 'moon',
 					radius: 0.3,
 					distance: 3,
-					texture: "earth.jpeg",
-				}
+					texture: "venus.jpeg",
+				},
 			],
 			rings: [
 				{
