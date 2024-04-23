@@ -32,6 +32,12 @@ export default function Page() {
 					radius: 1.1,
 					texture: "earth.jpeg",
 					planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
+				},
+				{
+					'name': 'earth',
+					radius: 1.2,
+					texture: "earth.jpeg",
+					planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
 				}
 			],
 			moons: [
@@ -39,8 +45,14 @@ export default function Page() {
 					'name': 'moon',
 					radius: 0.3,
 					distance: 3,
-					texture: "earth.jpeg",
-				}
+					texture: "venus.jpeg",
+				},
+				{
+					'name': 'moon',
+					radius: 0.1,
+					distance: 4,
+					texture: "venus.jpeg",
+				},
 			],
 			rings: [
 				{
