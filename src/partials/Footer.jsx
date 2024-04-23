@@ -12,12 +12,12 @@ const Footer = () => {
 					<div className='copyright'>
 						<p className='copy'>Made with 💛 by the hackathon team.</p>
 						<div className='git_link'>
-							<PrimaryBtn>
-								<Link href={'https://github.com/SantiagoCode/UniverseExplorer'} target='_blank'>
+							<Link href={'https://github.com/SantiagoCode/UniverseExplorer'} target='_blank'>
+								<PrimaryBtn>
 									<Icon.GitHub size={24} />
 									View on GitHub
-								</Link>
-							</PrimaryBtn>
+								</PrimaryBtn>
+							</Link>
 						</div>
 					</div>
 				</div>

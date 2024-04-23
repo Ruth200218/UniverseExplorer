@@ -13,18 +13,22 @@
     "@splinetool/runtime": "^1.0.99",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
+    "dat.gui": "^0.7.7",
     "mongoose": "^8.3.2",
     "next": "14.2.1",
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
-    "react-feather": "^2.0.10"
+    "react-feather": "^2.0.10",
+    "react-hot-toast": "^2.4.1",
+    "three": "^0.163.0"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
     "@types/react": "18.2.79",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
-    "sass": "^1.75.0"
+    "sass": "^1.75.0",
+    "typescript": "5.4.5"
   }
 }
