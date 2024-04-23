@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
+import NavPrimary from "../partials/NavPrimary";
 
 export default async function Navigation() {
 	const session = await getServerSession();
@@ -8,20 +9,7 @@ export default async function Navigation() {
 			<div className='container flex'>
 				{session ? (
 					<>
-						<ul className='left'>
-							<li>
-								<Link href='/#hero'>Explore Universe</Link>
-							</li>
-							<li>
-								<Link href='/#footer'>Contact Dev Team</Link>
-							</li>
-							<li>
-								<Link href='/dashboard'>Dashboard</Link>
-							</li>
-							<li>
-								<Link href={"http://localhost:3000/api/auth/signout"}>SignOut</Link>
-							</li>
-						</ul>
+						<NavPrimary />
 					</>
 				) : (
 					<>
