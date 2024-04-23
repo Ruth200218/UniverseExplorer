@@ -26,10 +26,16 @@ export default function Page() {
 			texture: "earth1.jpg",
 			centerDistance: 149.6e6,
 			planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-			layers : [
+			layers: [
 				{
 					'name': 'earth',
 					radius: 1.1,
+					texture: "earth.jpeg",
+					planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
+				},
+				{
+					'name': 'earth',
+					radius: 1.2,
 					texture: "earth.jpeg",
 					planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
 				}
@@ -39,10 +45,16 @@ export default function Page() {
 					'name': 'moon',
 					radius: 0.3,
 					distance: 3,
-					texture: "earth.jpeg",
-				}
+					texture: "venus.jpeg",
+				},
+				{
+					'name': 'moon',
+					radius: 0.1,
+					distance: 4,
+					texture: "venus.jpeg",
+				},
 			],
-			rings : [
+			rings: [
 				{
 					'insideRadius': 4.8,
 					'outsideRadius': 4.9,
@@ -69,7 +81,7 @@ export default function Page() {
 			planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
 		},
 		{
-			'name': 'mars 1',
+			'name': 'mars_1',
 			radius: 3,
 			positionX: 32,
 			texture: "earth.jpeg",
@@ -79,23 +91,13 @@ export default function Page() {
 	];
 	return (
 		<>
-			<div style={{position: 'relative',zIndex: 1}}>
+			<div style={{ position: 'relative', zIndex: 1 }}>
 				<SolarSystem planets={planets}></SolarSystem>
 				<div className="container">
 					<div className="dashboard section">
-						<div id="planets-list">
-							{planets.map((planet) => {
-								<div key={planet.name}>
-									<h3>{planet.name}</h3>
-									<p>Distance from Sun: {planet.centerDistance} km</p>
-									<p>Orbital period: {planet.planetYear} seconds</p>
-								</div>
-							})}
-						</div>
 					</div>
 				</div>
 			</div>
 		</>
 	)
 }
-// import React from 'react';
