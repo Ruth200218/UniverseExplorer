@@ -221,6 +221,11 @@ const starSchema = new Schema(
 
 const solarSystemSchema = new Schema(
     {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         name: {
             type: String,
             unique: true,
@@ -245,6 +250,6 @@ const solarSystemSchema = new Schema(
     }
 );
 
-const solarSystem = mongoose.models.solarSystem || mongoose.model("solarSystem", solarSystemSchema);
+const SolarSystem = mongoose.models.SolarSystem || mongoose.model("SolarSystem", solarSystemSchema);
 
-export default solarSystem;
+export default SolarSystem;
