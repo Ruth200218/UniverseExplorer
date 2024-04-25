@@ -61,7 +61,7 @@ const page = () => {
 const Items = () => {
 	const list = [
 		['New System', 'Description', ''],
-		['Solar System', 'Description', 'http://localhost:3000/model/solar_system'],
+		['Solar System', 'Description', '/dashboard/model/solar_system'],
 		['Kepler-22', 'Description', ''],
 		['Kepler-62', 'Description', ''],
 	];
