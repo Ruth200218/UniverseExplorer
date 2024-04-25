@@ -97,7 +97,7 @@ export default function SolarSystem({ planets, systemSolar }) {
 	}, [planets]);
 
 	return (
-		<div className='flex flex-col items-center justify-center'>
+		<div className='SolarSystem'>
 			<canvas ref={canvasElement} id='myThreeJsCanvas' />
 			<div id='planets-list'>
 				{planets.map((planet) => (

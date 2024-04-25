@@ -372,15 +372,31 @@ footer {
 	filter: brightness(0.8);
 }
 
+.SolarSystem {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	width: 100%;
+}
+
+#myThreeJsCanvas {
+	width: 100% !important;
+	height: 100vh !important;
+	object-fit: contain;
+}
+
 #planets-list {
 	z-index: 10;
 	left: 0;
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	width: 100%;
 	display: flex;
 	gap: 1rem;
 	background: transparent;
+
+	padding: 10px;
+	filter: drop-shadow(0px 0px 6px white);
 }
 
 .sphere {
@@ -394,7 +410,7 @@ footer {
 	background: var(--sphere_bg);
 	background-size: auto 100%;
 	animation: move-map 30s infinite linear;
-	box-shadow: 0 0 22px 2px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
 
 	&:before {
 		content: '';
