@@ -2,24 +2,40 @@
 import * as THREE from "three";
 import SceneInit from "../lib/SceneInit";
 import { useEffect, useRef, useState } from "react";
-import Planet from "../lib/Planet";
-import Rotation from "../lib/Rotation";
-import Ring from "../lib/Ring";
-import Moon from "../lib/Moon";
+import Orbit from "../lib/Orbit";
 
-export default function SolarSystem({ planets }) {
+export default function SolarSystem({ planets, systemSolar }) {
 	const canvasElement = useRef(null);
 	const [canvasPlane, setCanvasPlane] = useState(null);
+	const { starts, scale_distance, scale_radio } = systemSolar;
 
 	useEffect(() => {
 		if (canvasElement?.current && !canvasElement.current.classList.contains('canvas-init') && !canvasPlane) {
-			const scalePlane = 1e6;
+			//console.log(2 * Math.PI * (1 / 60) * (1 / 60))
+			const scalePlane = scale_distance;
 
-			const getPlanetOrbitSpeed = (distanceSunPlanet) => {
-				const G = 6.67430e-11 / scalePlane;
-				const sunWeight = 1.989e30 / scalePlane;
-				const orbitPlanetSpeed = Math.sqrt((G * sunWeight) / distanceSunPlanet);
-				return orbitPlanetSpeed / 1000;
+			function getPlanetRotationSpeed(kmPerH, radioKm) {
+				const KmPerSeconds = kmPerH / 3600;
+				const radPerSeconds = KmPerSeconds / KmPerSeconds;
+				return radPerSeconds;
+			}
+
+			function getOrbSpeed(day, year) {
+				const secondsInYear = year * day * 3600;
+				const orbSpeed = (2 * Math.PI) / secondsInYear;
+				return orbSpeed;
+			}
+
+			function scaleUnit(value) {
+				const newScale = (value / scalePlane).toFixed(2)
+				return newScale;
+			}
+
+			function scaleRadio(value) {
+				let newScale = (value / scale_radio).toFixed(2)
+				newScale = newScale > 60 ? 60 : newScale;
+				newScale = newScale < 0.1 ? 0.1 : newScale;
+				return newScale;
 			}
 
 			const initScene = async () => {
@@ -31,77 +47,28 @@ export default function SolarSystem({ planets }) {
 
 				setCanvasPlane(newScene);
 
-				const sunGeometry = new THREE.SphereGeometry(20);
-				const sunTexture = new THREE.TextureLoader().load("sun.jpeg");
-				const sunMaterial = new THREE.MeshBasicMaterial({
-					map: sunTexture,
+				const configOrbit = {
+					...starts[0],
+					planets,
+					ambientLight: true,
+					directionalLight: true,
+					isMainStar: true,
+				};
+
+				const orbit = new Orbit({
+					object: configOrbit,
+					scene: newScene.scene,
+					camera: newScene.camera,
+					controls: newScene.controls,
+					renderer: newScene.renderer,
 				});
-				const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
-				const solarSystem = new THREE.Group();
-				solarSystem.add(sunMesh);
+
+				const { mesh, orbit: solarSystem } = orbit.getMesh();
 
 				newScene.scene.add(solarSystem);
 
-				let systemPlanets = [];
-				planets.forEach(planet => {
-					const newPlanet = new Planet(planet.radius, (planet.centerDistance / scalePlane), planet.texture);
-					const planetMesh = newPlanet.getMesh();
-					let planetSystem = new THREE.Group();
-					planetSystem.add(planetMesh);
-					planetMesh.name += "_" + planet.name;
-					solarSystem.add(planetSystem);
-
-					planetMesh.receiveShadow = true;
-					planetMesh.castShadow = true;
-
-					const rotation = new Rotation(planetMesh);
-					const rotationMesh = rotation.getMesh();
-					planetSystem.add(rotationMesh);
-
-					const newSystemPlanet = {
-						name: planet.name,
-						planet: newPlanet,
-						planetMesh,
-						planetSystem,
-						centerDistance: planet.centerDistance / scalePlane,
-						planetYear: planet.planetYear,
-						rotationMesh,
-						moons: [],
-						rings: []
-					}
-
-					planet.layers?.forEach(layer => {
-						const newLayer = new Planet(layer.radius, 0, layer.texture);
-						const layerMesh = newLayer.getMesh();
-						// planet opacities
-						layerMesh.material.transparent = true;
-						layerMesh.material.opacity = 0.5;
-						planetMesh.add(layerMesh);
-					})
-
-
-					planet.moons?.forEach(moon => {
-						const newMoon = new Moon(moon.radius, moon.distance, moon.texture);
-						const moonMesh = newMoon.getMesh();
-
-						planetMesh.add(moonMesh);
-					})
-
-					planet.rings?.forEach(ring => {
-						const ringGeometry = new Ring(ring.insideRadius, ring.outsideRadius, ring.segments, planet.texture);
-						const ringGeometryMesh = ringGeometry.getMesh();
-						planetMesh.add(ringGeometryMesh);
-					})
-
-					if (planet.name == 'earth') {
-						newScene.INTERSECTED = planetMesh;
-					}
-
-
-					systemPlanets.push(newSystemPlanet);
-				});
-
 				let stopOrbitRotation = false;
+				let systemPlanets = [];
 
 				window.addEventListener("mousedown", () => {
 					//setStopOrbitRotation(true);
@@ -111,25 +78,13 @@ export default function SolarSystem({ planets }) {
 					if (newScene.INTERSECTED != null) {
 						setStopOrbitRotation(false);
 						newScene.initialDistance = newScene.sunInitialDistance
-						newScene.updateCamera(sunMesh, true)
+						newScene.updateCamera(orbitMesh, true)
 						newScene.INTERSECTED = null;
 					}
 				})
 
 				const animate = () => {
-					sunMesh.rotation.y += 2 * Math.PI * (1 / 60) * (1 / 60);
-					systemPlanets.forEach((planet) => {
-						const { planetSystem, centerDistance, planetMesh, planetYear } = planet;
-						if (!stopOrbitRotation) {
-							planetSystem.rotation.y += getPlanetOrbitSpeed(centerDistance) * 0.001;
-						}
-
-						planetMesh.rotation.y += planetYear;
-						if (newScene.INTERSECTED?.uuid == planetMesh.uuid) {
-							newScene.updateCamera(planetMesh, true, getPlanetOrbitSpeed(centerDistance) * 0.001)
-							//setStopOrbitRotation(true);
-						}
-					})
+					mesh.rotation.y += 2 * Math.PI / (1 * 60 * 60);
 
 					requestAnimationFrame(animate);
 				};

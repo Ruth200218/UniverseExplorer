@@ -3,7 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class SceneInit {
-  constructor(fov = 36, camera, scene, stats, controls, renderer) {
+  constructor(fov = 75, camera, scene, stats, controls, renderer) {
     this.fov = fov;
     this.scene = scene;
     //this.stats = stats;
@@ -23,8 +23,8 @@ export default class SceneInit {
     this.camera = new THREE.PerspectiveCamera(
       this.fov,
       window.innerWidth / window.innerHeight,
-      1,
-      1000
+      0.01,
+      10000
     );
     this.camera.position.z = 128;
 
@@ -32,8 +32,13 @@ export default class SceneInit {
 
     this.scene = new THREE.Scene();
 
+    // rayCaster
     this.rayCaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2();
+
+    // light
+    // const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    // this.scene.add(ambientLight);
 
     // const spaceTexture = new THREE.TextureLoader().load("space2.jpeg");
     // this.scene.background = spaceTexture;
@@ -44,6 +49,9 @@ export default class SceneInit {
       canvas: element,
       antialias: true,
     });
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
     element.classList.add('canvas-init')
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     //document.body.appendChild(this.renderer.domElement);
@@ -129,7 +137,7 @@ export default class SceneInit {
     if (planetMesh) {
       const planetPosition = this.planetPosition(planetMesh);
 
-      planetPosition.y += 1;
+      //planetPosition.y += 1;
 
       const currentDistance = this.camera.position.distanceTo(planetPosition);
       const scale = this.initialDistance / currentDistance;
