@@ -1,3 +1,5 @@
+import Navigation from '../components/Navigation';
+import Footer from '../partials/Footer';
 import Link from 'next/link';
 import Earth from '../components/Earth';
 import { PrimaryBtn } from '../components/Buttons';
@@ -6,6 +8,7 @@ import DevelopersSection from '../partials/DevelopersSection';
 export default function Home() {
 	return (
 		<>
+			<Navigation />
 			<Earth />
 			<section id='hero'>
 				<div className='container'>
@@ -24,6 +27,7 @@ export default function Home() {
 				</div>
 			</section>
 			<DevelopersSection />
+			<Footer />
 		</>
 	);
 }
