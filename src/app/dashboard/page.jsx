@@ -47,7 +47,7 @@ const page = () => {
 						</ul>
 					</aside>
 					<div className='dashboard__content'>
-						<h2>Tus ultimos modelos</h2>
+						<h3>Tus ultimos modelos</h3>
 						<div className='dashboard__content-grid'>
 							<Items />
 						</div>
