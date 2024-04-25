@@ -1,6 +1,6 @@
 import React from 'react';
-import SolarSystem from './../../../components/SolarSystem';
-import systemSolar from './../../../mocks/solar_system.json';
+import SolarSystem from '../../../../components/SolarSystem';
+import systemSolar from '../../../../mocks/solar_system.json';
 
 export default function Page() {
 	const { planets } = systemSolar;
