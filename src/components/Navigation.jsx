@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
-import NavPrimary from "../partials/NavPrimary";
+import NavPrimary from '../partials/NavPrimary';
 
 export default async function Navigation() {
 	const session = await getServerSession();
@@ -13,6 +13,11 @@ export default async function Navigation() {
 					</>
 				) : (
 					<>
+						<ul className='left'>
+							<li>
+								<Link href='/'>Home</Link>
+							</li>
+						</ul>
 						<ul className='right'>
 							<li>
 								<Link href='/login'>Login</Link>
@@ -26,4 +31,4 @@ export default async function Navigation() {
 			</div>
 		</nav>
 	);
-};
+}
