@@ -70,8 +70,9 @@ export default function Login() {
 			<div className='container'>
 				<div className='login section'>
 					<form onSubmit={handleSubmit}>
-						<h3>Login</h3>
-
+						<h2>
+							Log<span>In</span>
+						</h2>
 						<div className='input_item'>
 							<label>
 								Email
