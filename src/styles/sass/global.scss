@@ -63,11 +63,12 @@ body {
 	margin: 0;
 	display: flex;
 	justify-content: space-between;
-	padding: 20px 40px;
+	padding: 0 40px;
 	background-color: $wather;
 
 	ul {
 		padding: 0;
+
 		&.left {
 			display: flex;
 			justify-content: flex-start;
@@ -83,7 +84,7 @@ body {
 
 		li {
 			list-style: none;
-			padding: 10px 15px;
+			padding: 0 2.5rem;
 		}
 	}
 }
@@ -206,24 +207,81 @@ body {
 
 .dashboard {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr;
+	height: 100vh;
+	z-index: 9;
 
-	// .dashboard__side {}
+	.dashboard__grid-container {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		height: 100%;
 
-	.dashboard__content {
-		grid-column: 2 / 6;
+		.dashboard__side-menu {
+			background-color: $wather;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 
-		.dashboard__content-container {
+			ul {
+				margin: 5rem 0;
+				list-style: none;
+
+				li a {
+					margin-bottom: 2rem;
+					display: flex;
+					align-items: center;
+
+					svg {
+						margin-right: 1rem;
+					}
+				}
+			}
+		}
+
+		.dashboard__content {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 1fr 1fr;
-			gap: 1rem;
+			grid-template-rows: auto 1fr;
 
-			.dashboard_content-item {
-				background-color: $wather;
+			h2 {
+				margin: 40px 0 0 50px;
+			}
+			.dashboard__content-grid {
 				display: flex;
+				grid-column: 2 / -1;
 				justify-content: center;
 				align-items: center;
+
+				.dashboard__content-container {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					grid-gap: 1rem;
+					gap: 1rem;
+					padding: 2rem 5rem 5rem 5rem;
+					width: 100%;
+					height: 100%;
+					box-sizing: border-box;
+
+					.dashboard_content-item {
+						position: relative;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						flex-direction: column;
+
+						padding: 4rem;
+						border: 1px solid white;
+						border-radius: 10px;
+						backdrop-filter: blur(12px);
+						box-shadow: 0px 0px 4px white;
+						transition: 0.2s;
+
+						&:hover {
+							backdrop-filter: blur(16px);
+							box-shadow: 0px 0px 8px white;
+							scale: 1.01;
+						}
+					}
+				}
 			}
 		}
 	}
