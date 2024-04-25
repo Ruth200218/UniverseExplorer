@@ -1,5 +1,7 @@
 'use client';
 
+import Navigation from '../../components/Navigation';
+import Footer from '../../partials/Footer';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -65,33 +67,37 @@ export default function Login() {
 	};
 
 	return (
-		<section id='login'>
-			<Earth />
-			<div className='container'>
-				<div className='login section'>
-					<form onSubmit={handleSubmit}>
-						<h2>
-							Log<span>In</span>
-						</h2>
-						<div className='input_item'>
-							<label>
-								Email
-								<input required onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Write your email' name='email' />
-							</label>
-						</div>
+		<>
+			<Navigation />
+			<section id='login'>
+				<Earth />
+				<div className='container'>
+					<div className='login section'>
+						<form onSubmit={handleSubmit}>
+							<h2>
+								Log<span>In</span>
+							</h2>
+							<div className='input_item'>
+								<label>
+									Email
+									<input required onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Write your email' name='email' />
+								</label>
+							</div>
 
-						<div className='input_item'>
-							<label>
-								Password
-								<input required onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Write your password' name='password' />
-							</label>
-						</div>
+							<div className='input_item'>
+								<label>
+									Password
+									<input required onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Write your password' name='password' />
+								</label>
+							</div>
 
-						<PrimaryBtn clases={`submit`}>SignIn</PrimaryBtn>
-					</form>
+							<PrimaryBtn clases={`submit`}>SignIn</PrimaryBtn>
+						</form>
+					</div>
+					<Toaster />
 				</div>
-				<Toaster />
-			</div>
-		</section>
+			</section>
+			<Footer />
+		</>
 	);
 }

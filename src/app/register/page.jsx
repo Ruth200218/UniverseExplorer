@@ -1,5 +1,7 @@
 'use client';
 
+import Navigation from '../../components/Navigation';
+import Footer from '../../partials/Footer';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -78,67 +80,71 @@ export default function Register() {
 	};
 
 	return (
-		<section id='signup'>
-			<Earth />
-			<div className='container'>
-				<div className='signup section'>
-					<form onSubmit={handleSubmit}>
-						<h2>
-							Sign<span>Up</span>
-						</h2>
-						<div className='half'>
-							<div className='input_item'>
-								<label>
-									<div>
-										Name <span>*</span>
-									</div>
-									<input required onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='Jhon' name='first_name' />
-								</label>
-							</div>
-							<div className='input_item'>
-								<label>
-									<div>
-										Last Name <span>*</span>
-									</div>
-									<input required onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Due' name='last_name' />
-								</label>
-							</div>
-						</div>
-						<div className='input_item'>
-							<label>
-								<div>
-									Email <span>*</span>
+		<>
+			<Navigation />
+			<section id='signup'>
+				<Earth />
+				<div className='container'>
+					<div className='signup section'>
+						<form onSubmit={handleSubmit}>
+							<h2>
+								Sign<span>Up</span>
+							</h2>
+							<div className='half'>
+								<div className='input_item'>
+									<label>
+										<div>
+											Name <span>*</span>
+										</div>
+										<input required onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='Jhon' name='first_name' />
+									</label>
 								</div>
-								<input required type='email' onChange={(e) => setEmail(e.target.value)} placeholder='jhondue@gmail.com' name='email' />
-							</label>
-						</div>
-						<div className='half'>
-							<div className='input_item'>
-								<label>
-									<div>
-										Password <span>*</span>
-									</div>
-									<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
-								</label>
+								<div className='input_item'>
+									<label>
+										<div>
+											Last Name <span>*</span>
+										</div>
+										<input required onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Due' name='last_name' />
+									</label>
+								</div>
 							</div>
 							<div className='input_item'>
 								<label>
 									<div>
-										Confirm password <span>*</span>
+										Email <span>*</span>
 									</div>
-									<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
+									<input required type='email' onChange={(e) => setEmail(e.target.value)} placeholder='jhondue@gmail.com' name='email' />
 								</label>
-								{invalidPassword && <p className='warning'>Passwords not matching.</p>}
 							</div>
-						</div>
+							<div className='half'>
+								<div className='input_item'>
+									<label>
+										<div>
+											Password <span>*</span>
+										</div>
+										<input required type='password' onChange={(e) => setPassword(e.target.value)} placeholder='********' name='password' />
+									</label>
+								</div>
+								<div className='input_item'>
+									<label>
+										<div>
+											Confirm password <span>*</span>
+										</div>
+										<input required type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='********' name='password' />
+									</label>
+									{invalidPassword && <p className='warning'>Passwords not matching.</p>}
+								</div>
+							</div>
 
-						<PrimaryBtn clases={`submit`} disabled={invalidPassword || password == '' ? true : false}>
-							Confirm
-						</PrimaryBtn>
-					</form>
+							<PrimaryBtn clases={`submit`} disabled={invalidPassword || password == '' ? true : false}>
+								Confirm
+							</PrimaryBtn>
+						</form>
+					</div>
+					<Toaster />
 				</div>
-				<Toaster />
-			</div>
-		</section>
+			</section>
+			<Footer />
+		</>
 	);
 }
