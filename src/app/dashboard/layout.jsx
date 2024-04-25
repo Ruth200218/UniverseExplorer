@@ -1,19 +1,18 @@
 'use client';
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 
 import SideMenu from '../../components/SideMenu';
 import EditMenu from '../../components/EditMenu';
 
-const layout = ({ children }) => {
-	const pathname = usePathname().includes('/edit');
+const Layout = ({ children }) => {
+	const [isEditPage, setIsEditPage] = useState(false);
 
 	return (
 		<>
 			<div className='dashboard'>
 				<div className='dashboard__grid-container'>
-					<aside className='dashboard__side-menu'>{!pathname ? <SideMenu /> : <EditMenu />}</aside>
+					<aside className='dashboard__side-menu'>{!isEditPage ? <SideMenu setIsEditPage={setIsEditPage} /> : <EditMenu setIsEditPage={setIsEditPage} />}</aside>
 					<div className='dashboard__content'>{children}</div>
 				</div>
 			</div>
@@ -21,4 +20,4 @@ const layout = ({ children }) => {
 	);
 };
 
-export default layout;
+export default Layout;

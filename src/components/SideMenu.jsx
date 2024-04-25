@@ -5,8 +5,13 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
 import { InvisibleBtn } from './Buttons';
+import { PrimaryBtn } from './Buttons';
+import { usePathname } from 'next/navigation';
 
-const SideMenu = () => {
+const SideMenu = ({ setIsEditPage }) => {
+	const pathname = usePathname();
+	// console.log('pathname', pathname);
+
 	return (
 		<>
 			<ul>
@@ -41,10 +46,11 @@ const SideMenu = () => {
 					</Link>
 				</li>
 			</ul>
-			<ul>
-				<li>
+			<ul className='buttons flex'>
+				<li style={{ marginRight: '1rem' }}>
 					<InvisibleBtn func={() => signOut()}>SignOut</InvisibleBtn>
 				</li>
+				<li>{pathname && pathname.includes('model') && <PrimaryBtn func={() => setIsEditPage(true)}>Edit</PrimaryBtn>}</li>
 			</ul>
 		</>
 	);
