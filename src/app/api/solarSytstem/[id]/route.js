@@ -25,6 +25,7 @@ export async function GET(request, { params }) {
                 }
             );
         };
+        return NextResponse.error();
     };
 };
 
@@ -147,5 +148,6 @@ export async function PUT(request, { params }) {
                 }
             );
         };
+        return NextResponse.error();
     };
 };
