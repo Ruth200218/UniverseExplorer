@@ -60,10 +60,10 @@ const page = () => {
 
 const Items = () => {
 	const list = [
-		['New System', 'Description', ''],
+		['New System', 'Description', '/dashboard/model/new'],
 		['Solar System', 'Description', '/dashboard/model/solar_system'],
-		['Kepler-22', 'Description', ''],
-		['Kepler-62', 'Description', ''],
+		['Kepler-22', 'Description', '/dashboard/model/kepler_22'],
+		['Kepler-62', 'Description', '/dashboard/model/kepler_62'],
 	];
 
 	return (
