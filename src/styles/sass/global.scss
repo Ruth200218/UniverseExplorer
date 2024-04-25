@@ -10,17 +10,11 @@
 html,
 body {
 	scroll-behavior: smooth;
-
 	margin: 0;
 	padding: 0;
 	font-size: 62.5%;
 	box-sizing: border-box;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	min-height: 100vh;
-
 	background-color: $empty;
 	color: $light;
 

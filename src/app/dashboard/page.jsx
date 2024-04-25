@@ -16,19 +16,25 @@ const page = () => {
 					<aside className='dashboard__side-menu'>
 						<ul>
 							<li>
-								<a href='#'>
+								<a href='/profile'>
+									<Icon.User size='21' />
+									Profile
+								</a>
+							</li>
+							<li>
+								<a href='/collection'>
 									<Icon.Grid size='21' />
 									Collection
 								</a>
 							</li>
 							<li>
-								<a href='#'>
+								<a href='.import'>
 									<Icon.Upload size='21' />
 									Import
 								</a>
 							</li>
 							<li>
-								<a href='#'>
+								<a href='/export'>
 									<Icon.Download size='21' />
 									Export
 								</a>
@@ -54,16 +60,16 @@ const page = () => {
 
 const Items = () => {
 	const list = [
-		['New System', 'Description'],
-		['Kepler-11', 'Description'],
-		['Kepler-22', 'Description'],
-		['Kepler-62', 'Description'],
+		['New System', 'Description', ''],
+		['Solar System', 'Description', 'http://localhost:3000/model/solar_system'],
+		['Kepler-22', 'Description', ''],
+		['Kepler-62', 'Description', ''],
 	];
 
 	return (
 		<div className='dashboard__content-container'>
-			{list.map(([item, description]) => (
-				<Link href='' className='dashboard_content-item'>
+			{list.map(([item, description, link]) => (
+				<Link href={link} className='dashboard_content-item'>
 					<h3>{item}</h3>
 					<p>{description}</p>
 				</Link>
