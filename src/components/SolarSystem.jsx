@@ -16,7 +16,10 @@ export default function SolarSystem({ planets, systemSolar }) {
 				const setStopOrbitRotation = (value) => (stopOrbitRotation = value);
 
 				const getOrbSpeed = (day, year, distance) => {
-					const secondsPerDay = day * 60 * 60;
+					if (year > distance) {
+						distance = year * 2;
+					}
+					const secondsPerDay = day * 3600;
 					const secondsInYear = year * secondsPerDay;
 					const orbSpeed = (2 * Math.PI * distance) / secondsInYear;
 					return orbSpeed;
