@@ -8,39 +8,48 @@ import Orbit from '../lib/Orbit';
 export default function SolarSystem({ planets, systemSolar }) {
 	const canvasElement = useRef(null);
 	const [canvasPlane, setCanvasPlane] = useState(null);
-	const { starts, scale_distance, scale_radio } = systemSolar;
+	const { starts } = systemSolar;
+
 
 	useEffect(() => {
 		if (canvasElement?.current && !canvasElement.current.classList.contains('canvas-init') && !canvasPlane) {
-			//console.log(2 * Math.PI * (1 / 60) * (1 / 60))
-			const scalePlane = scale_distance;
-
-			function getPlanetRotationSpeed(kmPerH, radioKm) {
-				const KmPerSeconds = kmPerH / 3600;
-				const radPerSeconds = KmPerSeconds / KmPerSeconds;
-				return radPerSeconds;
-			}
-
-			function getOrbSpeed(day, year) {
-				const secondsInYear = year * day * 3600;
-				const orbSpeed = (2 * Math.PI) / secondsInYear;
-				return orbSpeed;
-			}
-
-			function scaleUnit(value) {
-				const newScale = (value / scalePlane).toFixed(2);
-				return newScale;
-			}
-
-			function scaleRadio(value) {
-				let newScale = (value / scale_radio).toFixed(2);
-				newScale = newScale > 60 ? 60 : newScale;
-				newScale = newScale < 0.1 ? 0.1 : newScale;
-				return newScale;
-			}
 
 			const initScene = async () => {
 				const setStopOrbitRotation = (value) => (stopOrbitRotation = value);
+
+				const getOrbSpeed = (day, year, distance) => {
+					if (year > distance) {
+						distance = year * 2;
+					}
+					const secondsPerDay = day * 3600;
+					const secondsInYear = year * secondsPerDay;
+					const orbSpeed = (2 * Math.PI * distance) / secondsInYear;
+					return orbSpeed;
+				}
+
+				const getPlanetRotationSpeed = (day) => {
+					const KmPerSeconds = (2 * Math.PI) / day;
+					return KmPerSeconds;
+				}
+
+				function animateRotation(object) {
+					const { day } = object.config;
+					object.mesh.rotation.y += getPlanetRotationSpeed(day) * 0.001;
+				}
+
+				function animateOrbitRotation(object) {
+					const { year, day, distance } = object.config;
+					object.orbit.rotation.y += getOrbSpeed(year, day, distance);
+				}
+
+				function generateRotation(systemMap, sphereType) {
+					for (let key in systemMap[sphereType]) {
+						animateOrbitRotation(systemMap[sphereType][key]);
+						animateRotation(systemMap[sphereType][key]);
+					}
+				}
+
+
 
 				let newScene = new SceneInit();
 				newScene.initScene(setStopOrbitRotation, canvasElement.current);
@@ -57,19 +66,21 @@ export default function SolarSystem({ planets, systemSolar }) {
 				};
 
 				const orbit = new Orbit({
-					object: configOrbit,
+					config: configOrbit,
 					scene: newScene.scene,
 					camera: newScene.camera,
 					controls: newScene.controls,
 					renderer: newScene.renderer,
+					animateOrbitRotation,
+					animateRotation,
 				});
 
-				const { mesh, orbit: solarSystem } = orbit.getMesh();
-
-				newScene.scene.add(solarSystem);
+				const { mesh, orbit: orbit_system, systemMap } = orbit.getMesh();
+				console.log(orbit_system)
+				newScene.scene.add(orbit_system);
+				newScene.systemMap = systemMap
 
 				let stopOrbitRotation = false;
-				let systemPlanets = [];
 
 				window.addEventListener('mousedown', () => {
 					//setStopOrbitRotation(true);
@@ -85,14 +96,32 @@ export default function SolarSystem({ planets, systemSolar }) {
 				});
 
 				const animate = () => {
-					mesh.rotation.y += (2 * Math.PI) / (1 * 60 * 60);
-
+					mesh.rotation.y += 2 * Math.PI / (1 * 60 * 60);
+					generateRotation(systemMap, 'planets')
 					requestAnimationFrame(animate);
 				};
 				animate();
 			};
 
 			initScene();
+		}
+
+		return () => {
+			if (canvasPlane) {
+				const scene = canvasPlane.scene;
+				// first remove the scene
+				while (scene.children.length > 0) {
+					scene.remove(scene.children[0]);
+				}
+				// then dispose the scene
+				scene.dispose();
+
+				// remove the canvas
+				canvasElement.current.remove();
+
+				// remove the canvas plane
+				setCanvasPlane(null);
+			}
 		}
 	}, [planets]);
 

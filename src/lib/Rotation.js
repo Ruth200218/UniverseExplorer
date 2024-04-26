@@ -15,6 +15,7 @@ export default class Rotation {
       this.mesh = new THREE.Mesh(geometry, material);
       this.mesh.position.x = this.planetPositionX / 2;
       this.mesh.visible = this.showRotation;
+      this.name = "rotation";
     }
     return this.mesh;
   }
