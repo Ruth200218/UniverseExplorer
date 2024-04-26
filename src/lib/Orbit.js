@@ -5,7 +5,7 @@ import Rotation from "./Rotation";
 
 export default class Orbit {
     constructor(config) {
-        this.object = config.object;
+        this.config = config.config;
         this.orbit = null;
         this.mesh = null;
         this.scene = config.scene;
@@ -13,6 +13,19 @@ export default class Orbit {
         this.controls = config.controls;
         this.renderer = config.renderer;
         this.scene = config.scene;
+        this.targetCamera = null;
+        // system map
+        this.systemMap = {
+            orbit: null,
+            mesh: null,
+            name: "",
+            planets: {},
+            rings: {},
+            moons: {},
+            layers: {},
+            rotation: null,
+            config: this.config
+        };
     }
 
     setDirectionalLight(x, y, z, name = "mainDirectionalLight") {
@@ -40,12 +53,6 @@ export default class Orbit {
         this.scene.add(ambientLight);
     }
 
-    getOrbSpeed(day, year) {
-        const secondsInYear = year * day * 3600;
-        const orbSpeed = (2 * Math.PI) / secondsInYear;
-        return orbSpeed;
-    }
-
     updateLightRota() {
         const light = this.scene.getObjectByName("mainDirectionalLight");
         if (light) {
@@ -53,33 +60,24 @@ export default class Orbit {
         }
     }
 
-    getPlanetRotationSpeed(day) {
-        // calculate the rotation speed of the planet width the day in hours
-        const KmPerSeconds = (2 * Math.PI) / day;
-        return KmPerSeconds;
-    }
-
-    animate = () => {
-        const { year, day } = this.object;
-        // rotation of the planet
-        this.mesh.rotation.y += this.getPlanetRotationSpeed(day) * 0.001;
-        // rotation of the orbit
-        this.orbit.rotation.y += this.getOrbSpeed(year, day) + 0.0001;
-        requestAnimationFrame(this.animate);
-    }
-
     getMesh() {
-        const object = this.object;
+        const config = this.config;
         if (this.orbit === undefined || this.orbit === null) {
 
-            const planet = new Sphere(object.radius, object.distance, object.texture, object.prefix);
-            this.mesh = planet.getMesh();
+            const sphere = new Sphere(config.radius, config.distance, config.texture, config.prefix);
+            this.mesh = sphere.getMesh();
+
+            // create mesh for camera lookAt 
+
+            this.targetCamera = new THREE.Mesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
 
             // name 
-            this.mesh.name += (object.prefix ? "_" : '') + object.name;
+            this.mesh.name += (config.prefix ? "_" : '') + config.name;
+            this.targetCamera.name = this.mesh.name + "_camera";
+            this.mesh.add(this.targetCamera);
 
-            if (object.isMainStar) {
-                const texture = new THREE.TextureLoader().load(object.texture);
+            if (config.isMainStar) {
+                const texture = new THREE.TextureLoader().load(config.texture);
                 this.mesh.position.set(0, 0, 0);
                 // change material
                 this.mesh.material.emissiveIntensity = 1
@@ -93,26 +91,30 @@ export default class Orbit {
             this.orbit = new THREE.Group();
             this.orbit.add(this.mesh);
 
+            this.systemMap.orbit = this.orbit;
+            this.systemMap.mesh = this.mesh;
+            this.systemMap.name = this.mesh.name;
+            this.systemMap.targetCamera = this.targetCamera;
 
             // has orbit parent
-            if (object.orbitParent) {
-                object.orbitParent.add(this.orbit);
+            if (config.orbitParent) {
+                config.orbitParent.add(this.orbit);
             }
 
-            if (object.directionalLight) {
+            if (config.directionalLight) {
                 this.setDirectionalLight(this.orbit.position.x, this.orbit.position.y, this.orbit.position.z);
             }
 
-            if (object.ambientLight) {
+            if (config.ambientLight) {
                 this.setAmbientLight();
             }
 
 
-            if (object.planets) {
-                object.planets.forEach(planet => {
+            if (config.planets) {
+                config.planets.forEach((planet, index) => {
                     planet.prefix = "planet";
                     const planetOrbit = new Orbit({
-                        object: planet,
+                        config: planet,
                         scene: this.scene,
                         camera: this.camera,
                         controls: this.controls,
@@ -120,16 +122,19 @@ export default class Orbit {
                         orbitParent: this.orbit,
                     });
 
-                    const { orbit, mesh } = planetOrbit.getMesh();
+                    const { orbit, mesh, systemMap } = planetOrbit.getMesh();
                     this.orbit.add(orbit);
+                    const suffix = this.systemMap.planets[mesh.name] ? '_' + index : '';
+                    this.systemMap.planets[mesh.name + suffix] = systemMap
                 });
             }
 
-            if (object.moons) {
-                object.moons.forEach(moon => {
+            if (config.moons) {
+                config.moons.forEach((moon, index) => {
                     moon.prefix = "moon";
-                    const planetOrbit = new Orbit({
-                        object: moon,
+                    moon.distance += config.radius;
+                    const MoonOrbit = new Orbit({
+                        config: moon,
                         scene: this.scene,
                         camera: this.camera,
                         controls: this.controls,
@@ -137,40 +142,45 @@ export default class Orbit {
                         orbitParent: this.orbit
                     });
 
-                    const { orbit, mesh } = planetOrbit.getMesh();
+                    const { orbit, mesh, systemMap } = MoonOrbit.getMesh();
                     this.mesh.add(orbit);
+                    const suffix = this.systemMap.moons[mesh.name] ? '_' + index : '';
+                    this.systemMap.moons[mesh.name + suffix] = systemMap
                 });
             }
 
-            if (object.rings) {
-                object.rings.forEach(ring => {
+            if (config.rings) {
+                config.rings.forEach(ring => {
                     const ringOrbit = new Ring(
                         ring.insideRadius,
                         ring.outsideRadius,
                         ring.segments,
                         ring.textureFile
                     );
-                    this.mesh.add(ringOrbit.getMesh());
+                    const { mesh } = ringOrbit.getMesh();
+                    this.mesh.add(mesh);
+
+                    const suffix = this.systemMap.rings[mesh.name] ? '_' + index : '';
+                    this.systemMap.rings[mesh.name + suffix] = mesh
                 });
             }
 
-            if (object.layers) {
-                object.layers?.forEach(layer => {
-                    const newLayer = new Sphere(layer.radius, 0, layer.texture);
+            if (config.layers) {
+                config.layers?.forEach((layer, index) => {
+                    const newLayer = new Sphere(layer.radius, 0, layer.texture, 'layer');
                     const layerMesh = newLayer.getMesh();
                     // planet opacities
                     layerMesh.material.transparent = layer.opacity ? true : false;
                     layerMesh.material.opacity = layer.opacity;
                     this.mesh.add(layerMesh);
+                    const suffix = this.systemMap.layers[layerMesh.name] ? '_' + index : '';
+                    this.systemMap.layers[layerMesh.name + suffix] = layerMesh
                 })
             }
 
             const rotation = new Rotation(this.mesh);
             this.orbit.add(rotation.getMesh());
-
-            if (!object.isMainStar) {
-                this.animate();
-            }
+            this.systemMap.rotation = rotation.getMesh();
         }
 
         return this;

@@ -10,15 +10,16 @@ export default class Ring {
 
   getMesh() {
     if (this.mesh === undefined || this.mesh === null) {
-        const ringGeometry = new THREE.RingGeometry(this.insideRadius, this.outsideRadius, this.segments);
-        const ringTexture = new THREE.TextureLoader().load(this.textureFile);
-        const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+      const ringGeometry = new THREE.RingGeometry(this.insideRadius, this.outsideRadius, this.segments);
+      const ringTexture = new THREE.TextureLoader().load(this.textureFile);
+      const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
 
 
-        this.mesh = new THREE.Mesh(ringGeometry, ringMaterial);
+      this.mesh = new THREE.Mesh(ringGeometry, ringMaterial);
 
-        this.mesh.rotation.x = Math.PI / 2;
+      this.mesh.rotation.x = Math.PI / 2;
+      this.mesh.name = "ring";
     }
-    return this.mesh;
+    return this;
   }
 }
