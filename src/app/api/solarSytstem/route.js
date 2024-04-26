@@ -2,6 +2,8 @@ import DB from "../../../../services/database";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+//POST METHOD
+
 export async function POST(request) {
     try {
         //BASIC INFORMATION ABOUT SOLAR SYSTEM
@@ -102,6 +104,7 @@ export async function POST(request) {
         });
 
         const savedSolarSystem = await createSolarSystem.save();
+
         return NextResponse.json({ message: "Solar System Created", data:savedSolarSystem }, { status: 201 });
 
     } catch (error) {
@@ -113,6 +116,61 @@ export async function POST(request) {
                 },
                 {
                     status: 400
+                }
+            );
+        };
+        return NextResponse.error();
+    };
+};
+
+//GET METHOD
+
+export async function GET(request) {
+    try {
+        const { SolarSystem } = await DB();
+
+        const user_id = request.nextUrl.searchParams.get("user_id");
+
+        const solarSystemFound = await SolarSystem.find({ user_id });
+
+        return NextResponse.json({ solarSystemFound });
+
+    } catch (error) {
+        console.log(error);
+        if (error instanceof mongoose.Error.ValidationError) {
+            return NextResponse.json(
+                {
+                    message: error.message,
+                },
+                {
+                    status:400,
+                }
+            );
+        };
+        return NextResponse.error();
+    };
+};
+
+//DELETE METHOD
+export async function DELETE(request) {
+    try {
+        const id = request.nextUrl.searchParams.get("id");
+
+        const { SolarSystem } = await DB();
+
+        await SolarSystem.findByIdAndDelete(id);
+
+        return NextResponse.json({ message: "Solar System Deleted" }, { status: 200 } );
+
+    } catch (error) {
+        console.log(error);
+        if (error instanceof mongoose.Error.ValidatorError){
+            return NextResponse.json(
+                {
+                    message: error.message,
+                },
+                {
+                    status: 400,
                 }
             );
         };
