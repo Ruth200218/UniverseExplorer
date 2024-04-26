@@ -1,41 +1,37 @@
+'use client';
+
 import React from 'react';
-import NavPrimary from '../../partials/NavPrimary';
+import Link from 'next/link';
+import Earth from '../../components/Earth';
 
 const page = () => {
 	return (
-		<div style={{ position: 'relative', zIndex: 1 }}>
-			<div className='dashboard'>
-				<NavPrimary />
-				<aside className='dashboard__side-menu'>
-					<ul>
-						<li>
-							<a href='#'>Home</a>
-						</li>
-						<li>
-							<a href='#'>About</a>
-						</li>
-						<li>
-							<a href='#'>Contact</a>
-						</li>
-					</ul>
-				</aside>
-				<main className='dashboard__content'>
-					<div className='dashboard__content-container'>
-						<div className='dashboard_content-item'>
-							<h4>Celda</h4>
-						</div>
-						<div className='dashboard_content-item'>
-							<h4>Celda</h4>
-						</div>
-						<div className='dashboard_content-item'>
-							<h4>Celda</h4>
-						</div>
-						<div className='dashboard_content-item'>
-							<h4>Celda</h4>
-						</div>
-					</div>
-				</main>
+		<>
+			<h3>Tus ultimos modelos</h3>
+			<div className='dashboard__content-grid'>
+				<Items />
 			</div>
+		</>
+	);
+};
+
+const Items = () => {
+	const list = [
+		['New System', 'Description', '/dashboard/model/new'],
+		['Solar System', 'Description', '/dashboard/model/solar_system'],
+		['Kepler-22', 'Description', '/dashboard/model/kepler_22'],
+		['Kepler-62', 'Description', '/dashboard/model/kepler_62'],
+	];
+
+	return (
+		<div className='dashboard__content-container'>
+			<Earth />
+			{list.map(([item, description, link]) => (
+				<Link href={link} className='dashboard_content-item'>
+					<h3>{item}</h3>
+					<p>{description}</p>
+				</Link>
+			))}
 		</div>
 	);
 };

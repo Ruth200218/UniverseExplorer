@@ -1,62 +1,62 @@
 {
-    "name": "sistema_solar",
-    "display_name": "Sistema solar",
-    "scale_distance": 1,
-    "scale_radio": 1,
-    "starts": [
-        {
-            "name": "sun",
-            "display_name": "Sol",
-            "radius": 30,
-            "texture": "sun.jpg",
-            "speed": 1,
-            "description": "qlq"
-        }
-    ],
-    "planets": [
-        {
-            "name": "earth",
-            "display_name": "Earth",
-            "radius": 5,
-            "texture": "earth1.jpg",
-            "distance": 200,
-            "speed": 107280,
-            "year": 365.25,
-            "day": 24,
-            "description": "qlq",
-            "layers": [
-                {
-                    "name": "earth",
-                    "display_name": "Layer 1",
-                    "radius": 5.1,
-                    "opacity": 0.3,
-                    "texture": "earth_clouds.jpg",
-                    "speed": 1,
-                    "description": "qlq"
-                }
-            ],
-            "moons": [
-                {
-                    "name": "moon",
-                    "display_name": "Moon",
-                    "radius": 1,
-                    "distance": 20,
-                    "day": 24,
-                    "year": 27.3,
-                    "texture": "venus.jpeg",
-                    "description": "qlq"
-                }
-            ],
-            "rings": [
-                {
-                    "name": "ring",
-                    "display_name": "Ring",
-                    "insideRadius": 8,
-                    "outsideRadius": 7,
-                    "segments": 100,
-                    "description": "qlq"
-                }
-            ]
-        }
-    ]
+	"name": "sistema_solar",
+	"display_name": "Sistema solar",
+	"scale_distance": 1,
+	"scale_radio": 1,
+	"starts": [
+		{
+			"name": "sun",
+			"display_name": "Sol",
+			"radius": 30,
+			"texture": "/sun.jpg",
+			"speed": 1,
+			"description": "qlq"
+		}
+	],
+	"planets": [
+		{
+			"name": "earth",
+			"display_name": "Earth",
+			"radius": 5,
+			"texture": "/earth1.jpg",
+			"distance": 200,
+			"speed": 107280,
+			"year": 365.25,
+			"day": 24,
+			"description": "qlq",
+			"layers": [
+				{
+					"name": "earth",
+					"display_name": "Layer 1",
+					"radius": 5.1,
+					"opacity": 0.3,
+					"texture": "/earth_clouds.jpg",
+					"speed": 1,
+					"description": "qlq"
+				}
+			],
+			"moons": [
+				{
+					"name": "moon",
+					"display_name": "Moon",
+					"radius": 1,
+					"distance": 20,
+					"day": 24,
+					"year": 27.3,
+					"texture": "/venus.jpeg",
+					"description": "qlq"
+				}
+			],
+			"rings": [
+				{
+					"name": "ring",
+					"display_name": "Ring",
+					"insideRadius": 8,
+					"outsideRadius": 7,
+					"segments": 100,
+					"description": "qlq"
+				}
+			]
+		}
+	]
 }
