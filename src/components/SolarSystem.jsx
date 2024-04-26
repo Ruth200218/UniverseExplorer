@@ -10,6 +10,7 @@ export default function SolarSystem({ planets, systemSolar }) {
 	const [canvasPlane, setCanvasPlane] = useState(null);
 	const { starts } = systemSolar;
 
+
 	useEffect(() => {
 		if (canvasElement?.current && !canvasElement.current.classList.contains('canvas-init') && !canvasPlane) {
 
@@ -103,6 +104,24 @@ export default function SolarSystem({ planets, systemSolar }) {
 			};
 
 			initScene();
+		}
+
+		return () => {
+			if (canvasPlane) {
+				const scene = canvasPlane.scene;
+				// first remove the scene
+				while (scene.children.length > 0) {
+					scene.remove(scene.children[0]);
+				}
+				// then dispose the scene
+				scene.dispose();
+
+				// remove the canvas
+				canvasElement.current.remove();
+
+				// remove the canvas plane
+				setCanvasPlane(null);
+			}
 		}
 	}, [planets]);
 
