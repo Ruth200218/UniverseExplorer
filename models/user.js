@@ -6,16 +6,16 @@ const userSchema = new Schema (
             type: String,
             required: [true, "Name is required"],
             match: [
-                /^[A-Za-zñÑáéíóúÁÉÍÓÚ]*$/,
-                "Nombre inválido"
+                /^[A-Za-záéíóúüÁÉÍÓÚÜ\s]*$/,
+                "invalid name"
             ],
         },
         last_name: {
             type: String, 
             required: [true, "Last name is required"],
             match: [
-                /^[A-Za-zñÑáéíóúÁÉÍÓÚ]*$/, 
-                "Apellido inválido"
+                /^[A-Za-záéíóúüÁÉÍÓÚÜ\s]*$/, 
+                "invalid last name"
             ],
         },
         email: {
@@ -24,7 +24,7 @@ const userSchema = new Schema (
             required: [true, "Email is required"],
             match: [
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                "Email is invalid"
+                "invalid email"
             ],
         },
         password: {

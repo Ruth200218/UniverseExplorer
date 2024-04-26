@@ -1,98 +1,39 @@
+'use client';
+
 import React from 'react';
-import SolarSystem from '../../components/SolarSystem';
-import systemSolar from '../../mocks/solar_system.json';
-export default function Page() {
-	const { planets } = systemSolar;
-	// const planets = [
-	// 	{
-	// 		'name': 'mercury',
-	// 		radius: 2,
-	// 		positionX: 16,
-	// 		texture: "mercury.png",
-	// 		centerDistance: 57.9e6,
-	// 		planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-	// 	},
-	// 	{
-	// 		'name': 'venus',
-	// 		radius: 3,
-	// 		positionX: 32,
-	// 		texture: "venus.jpeg",
-	// 		centerDistance: 108.2e6,
-	// 		planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-	// 	},
-	// 	{
-	// 		'name': 'earth',
-	// 		radius: 1,
-	// 		positionX: 48,
-	// 		texture: "earth1.jpg",
-	// 		centerDistance: 149.6e6,
-	// 		planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-	// 		layers: [
-	// 			{
-	// 				'name': 'earth',
-	// 				radius: 1.1,
-	// 				texture: "earth.jpeg",
-	// 				planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
-	// 			},
-	// 			{
-	// 				'name': 'earth',
-	// 				radius: 1.2,
-	// 				texture: "earth.jpeg",
-	// 				planetYear: 2 * Math.PI * (1 / 65) * (1 / 65),
-	// 			}
-	// 		],
-	// 		moons: [
-	// 			{
-	// 				'name': 'moon',
-	// 				radius: 0.3,
-	// 				distance: 3,
-	// 				texture: "venus.jpeg",
-	// 			},
-	// 		],
-	// 		rings: [
-	// 			{
-	// 				'insideRadius': 4.8,
-	// 				'outsideRadius': 4.9,
-	// 				'segments': 100,
-	// 			},
-	// 			{
-	// 				'insideRadius': 4,
-	// 				'outsideRadius': 4.7,
-	// 				'segments': 100,
-	// 			},
-	// 			{
-	// 				'insideRadius': 3.8,
-	// 				'outsideRadius': 3.9,
-	// 				'segments': 100,
-	// 			}
-	// 		]
-	// 	},
-	// 	{
-	// 		'name': 'mars',
-	// 		radius: 3,
-	// 		positionX: 64,
-	// 		texture: "mars.jpeg",
-	// 		centerDistance: 227.9e6,
-	// 		planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-	// 	},
-	// 	{
-	// 		'name': 'mars_1',
-	// 		radius: 3,
-	// 		positionX: 32,
-	// 		texture: "earth.jpeg",
-	// 		centerDistance: 255.9e6,
-	// 		planetYear: 2 * Math.PI * (1 / 60) * (1 / 60),
-	// 	},
-	// ];
+import Link from 'next/link';
+import Earth from '../../components/Earth';
+
+const page = () => {
 	return (
 		<>
-			<div style={{ position: 'relative', zIndex: 1 }}>
-				<SolarSystem systemSolar={systemSolar} planets={planets}></SolarSystem>
-				<div className="container">
-					<div className="dashboard section">
-					</div>
-				</div>
+			<h3>Tus ultimos modelos</h3>
+			<div className='dashboard__content-grid'>
+				<Items />
 			</div>
 		</>
-	)
-}
+	);
+};
+
+const Items = () => {
+	const list = [
+		['New System', 'Description', '/dashboard/model/new'],
+		['Solar System', 'Description', '/dashboard/model/solar_system'],
+		['Kepler-22', 'Description', '/dashboard/model/kepler_22'],
+		['Kepler-62', 'Description', '/dashboard/model/kepler_62'],
+	];
+
+	return (
+		<div className='dashboard__content-container'>
+			<Earth />
+			{list.map(([item, description, link]) => (
+				<Link href={link} className='dashboard_content-item'>
+					<h3>{item}</h3>
+					<p>{description}</p>
+				</Link>
+			))}
+		</div>
+	);
+};
+
+export default page;

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@rjsf/core": "^5.18.2",
+    "@rjsf/utils": "^5.18.2",
+    "@rjsf/validator-ajv8": "^5.18.2",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^1.0.99",
     "@types/bcryptjs": "^2.4.6",

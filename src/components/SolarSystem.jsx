@@ -1,8 +1,9 @@
-'use client'
-import * as THREE from "three";
-import SceneInit from "../lib/SceneInit";
-import { useEffect, useRef, useState } from "react";
-import Orbit from "../lib/Orbit";
+'use client';
+
+import * as THREE from 'three';
+import SceneInit from '../lib/SceneInit';
+import { useEffect, useRef, useState } from 'react';
+import Orbit from '../lib/Orbit';
 
 export default function SolarSystem({ planets, systemSolar }) {
 	const canvasElement = useRef(null);
@@ -80,18 +81,18 @@ export default function SolarSystem({ planets, systemSolar }) {
 
 				let stopOrbitRotation = false;
 
-				window.addEventListener("mousedown", () => {
+				window.addEventListener('mousedown', () => {
 					//setStopOrbitRotation(true);
-				})
+				});
 
-				window.addEventListener("contextmenu", () => {
+				window.addEventListener('contextmenu', () => {
 					if (newScene.INTERSECTED != null) {
 						setStopOrbitRotation(false);
-						newScene.initialDistance = newScene.sunInitialDistance
-						newScene.updateCamera(orbitMesh, true)
+						newScene.initialDistance = newScene.sunInitialDistance;
+						newScene.updateCamera(orbitMesh, true);
 						newScene.INTERSECTED = null;
 					}
-				})
+				});
 
 				const animate = () => {
 					mesh.rotation.y += 2 * Math.PI / (1 * 60 * 60);
@@ -99,21 +100,28 @@ export default function SolarSystem({ planets, systemSolar }) {
 					requestAnimationFrame(animate);
 				};
 				animate();
-			}
+			};
 
 			initScene();
 		}
 	}, [planets]);
 
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<canvas ref={canvasElement} id="myThreeJsCanvas" />
-			<div id="planets-list">
+		<div className='SolarSystem'>
+			<canvas ref={canvasElement} id='myThreeJsCanvas' />
+			<div id='planets-list'>
 				{planets.map((planet) => (
-					<div key={planet.name} id={planet.name} onClick={function () { canvasPlane.selectPlanet(planet.name) }}>
-						<figure className="sphere" style={{
-							'--sphere_bg': `url(/${planet.texture}) repeat-x`
-						}}></figure>
+					<div
+						key={planet.name}
+						id={planet.name}
+						onClick={function () {
+							canvasPlane.selectPlanet(planet.name);
+						}}>
+						<figure
+							className='sphere'
+							style={{
+								'--sphere_bg': `url(${planet.texture}) repeat-x`,
+							}}></figure>
 					</div>
 				))}
 			</div>

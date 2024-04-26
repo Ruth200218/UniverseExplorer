@@ -44,7 +44,18 @@ export const authOptions = {
             session.user = token.user;
             return session;
         },
+
+        async getSession({ session, token, maxAge }) {
+            if (Date.now() - session.timestamp > maxAge * 1000){
+                throw new Error('Session expired');
+            };
+            return session;
+        },
     },
+    session: {
+        maxAge: 60 * 60,
+    },
+
     pages: {
         signIn: '/login',
     }

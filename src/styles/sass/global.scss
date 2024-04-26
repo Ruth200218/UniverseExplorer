@@ -10,17 +10,11 @@
 html,
 body {
 	scroll-behavior: smooth;
-
 	margin: 0;
 	padding: 0;
 	font-size: 62.5%;
 	box-sizing: border-box;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	min-height: 100vh;
-
 	background-color: $empty;
 	color: $light;
 
@@ -32,10 +26,8 @@ body {
 
 .navigation {
 	background-color: $wather;
-	position: fixed;
 	display: flex;
-	top: 0;
-	left: 0;
+	position: fixed;
 	width: 100%;
 	z-index: 999;
 
@@ -56,6 +48,37 @@ body {
 		li {
 			list-style: none;
 			padding: 10px 15px;
+		}
+	}
+}
+
+.nav_primary {
+	grid-column: 1 / 6;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 40px;
+	background-color: $wather;
+
+	ul {
+		padding: 0;
+
+		&.left {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			list-style: none;
+		}
+		&.right {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			list-style: none;
+		}
+
+		li {
+			list-style: none;
+			padding: 0 2.5rem;
 		}
 	}
 }
@@ -94,6 +117,14 @@ body {
 			display: flex;
 			margin-top: 2rem;
 		}
+	}
+
+	&.signup,
+	&.login {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: 100vh;
 	}
 
 	& .devs_section {
@@ -156,13 +187,6 @@ body {
 		}
 	}
 
-	&.signup {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		min-height: 100vh;
-	}
-
 	&.footer {
 		.copyright {
 			display: flex;
@@ -171,8 +195,88 @@ body {
 			margin-top: 6rem;
 		}
 	}
+}
 
-	// &.dashboard {}
+.dashboard {
+	display: grid;
+	grid-template-columns: 1fr;
+	height: 100vh;
+	z-index: 9;
+
+	.dashboard__grid-container {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		height: 100%;
+
+		.dashboard__side-menu {
+			background-color: $wather;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			ul {
+				margin: 5rem 0;
+				list-style: none;
+
+				li a {
+					margin-bottom: 2rem;
+					display: flex;
+					align-items: center;
+
+					svg {
+						margin-right: 1rem;
+					}
+				}
+			}
+		}
+
+		.dashboard__content {
+			display: grid;
+			grid-template-rows: auto 1fr;
+
+			h3 {
+				margin: 40px 0 0 50px;
+			}
+			.dashboard__content-grid {
+				display: flex;
+				grid-column: 2 / -1;
+				justify-content: center;
+				align-items: center;
+
+				.dashboard__content-container {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					grid-gap: 1rem;
+					gap: 1rem;
+					padding: 2rem 5rem 5rem 5rem;
+					width: 100%;
+					height: 100%;
+					box-sizing: border-box;
+
+					.dashboard_content-item {
+						position: relative;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						flex-direction: column;
+
+						padding: 4rem;
+						border: 1px solid white;
+						border-radius: 10px;
+						backdrop-filter: blur(12px);
+						box-shadow: 0px 0px 4px white;
+						transition: 0.2s;
+
+						&:hover {
+							backdrop-filter: blur(16px);
+							box-shadow: 0px 0px 8px white;
+							scale: 1.01;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 footer {
@@ -268,15 +372,31 @@ footer {
 	filter: brightness(0.8);
 }
 
+.SolarSystem {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	width: 100%;
+}
+
+#myThreeJsCanvas {
+	width: 100% !important;
+	height: 100vh !important;
+	object-fit: cover;
+}
+
 #planets-list {
-    z-index: 10;
+	z-index: 10;
 	left: 0;
-    position: fixed;
-    bottom: 0;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	display: flex;
 	gap: 1rem;
 	background: transparent;
+
+	padding: 10px;
+	filter: drop-shadow(0px 0px 6px white);
 }
 
 .sphere {
@@ -290,10 +410,10 @@ footer {
 	background: var(--sphere_bg);
 	background-size: auto 100%;
 	animation: move-map 30s infinite linear;
-	box-shadow: 0 0 22px 2px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
 
 	&:before {
-		content: "";
+		content: '';
 		position: absolute;
 		top: 0%;
 		left: 0%;
@@ -305,7 +425,7 @@ footer {
 	}
 
 	&:after {
-		content: "";
+		content: '';
 		position: absolute;
 		border-radius: 50%;
 		width: 100%;
