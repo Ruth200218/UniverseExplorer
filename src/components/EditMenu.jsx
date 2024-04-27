@@ -11,12 +11,12 @@ const SideMenu = ({ setIsEditPage, handleChange, schema }) => {
 	return (
 		<>
 			<SolarSystemForm handleChange={handleChange} schema={schema} />
-			<ul className='buttons flex'>
+			{/* <ul className='buttons flex'>
 				<li style={{ marginRight: '1rem' }}>
 					<InvisibleBtn func={() => signOut()}>SignOut</InvisibleBtn>
 				</li>
 				<li>{pathname && pathname.includes('model') && <PrimaryBtn func={() => setIsEditPage(false)}>Save</PrimaryBtn>}</li>
-			</ul>
+			</ul> */}
 		</>
 	);
 };
