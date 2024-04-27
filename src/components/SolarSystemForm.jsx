@@ -2,8 +2,6 @@
 
 import Form from '@rjsf/core';
 import validator from '@rjsf/validator-ajv8';
-import systemSolar from './../mocks/solar_system.json';
-
 const log = (type) => console.log.bind(console, type);
 
 // generate schema from json file
@@ -49,6 +47,13 @@ function convertJsonToSchema(json) {
 	return schema;
 }
 
-export default function page() {
-	return <Form schema={convertJsonToSchema(systemSolar)} onChange={log('changed')} validator={validator} onSubmit={log('submitted')} onError={log('errors')} />;
+export default function page({ schema, handleChange }) {
+	return <Form
+		schema={convertJsonToSchema({ ...schema })}
+		onChange={handleChange}
+		validator={validator}
+		formData={{ ...schema }}
+		onSubmit={log('submitted')}
+		onError={log('errors')}
+	/>;
 }

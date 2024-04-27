@@ -9,12 +9,12 @@ import { PrimaryBtn } from './Buttons';
 import { usePathname } from 'next/navigation';
 import SolarSystemForm from './SolarSystemForm';
 
-const SideMenu = ({ setIsEditPage }) => {
+const SideMenu = ({ setIsEditPage, handleChange, schema }) => {
 	const pathname = usePathname();
 
 	return (
 		<>
-			<SolarSystemForm />
+			<SolarSystemForm handleChange={handleChange} schema={schema} />
 			<ul className='buttons flex'>
 				<li style={{ marginRight: '1rem' }}>
 					<InvisibleBtn func={() => signOut()}>SignOut</InvisibleBtn>
