@@ -26,8 +26,8 @@ const Items = () => {
 	return (
 		<div className='dashboard__content-container'>
 			<Earth />
-			{list.map(([item, description, link]) => (
-				<Link href={link} className='dashboard_content-item'>
+			{list.map(([item, description, link], index) => (
+				<Link key={index} href={link} className='dashboard_content-item'>
 					<h3>{item}</h3>
 					<p>{description}</p>
 				</Link>
