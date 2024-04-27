@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
 		<>
 			<div className='dashboard'>
 				<div className='dashboard__grid-container'>
-					<aside className='dashboard__side-menu'>{!isEditPage ? <SideMenu setIsEditPage={setIsEditPage} /> : <EditMenu setIsEditPage={setIsEditPage} />}</aside>
+					<aside className='dashboard__side-menu'>{<SideMenu setIsEditPage={setIsEditPage} />}</aside>
 					<div className='dashboard__content'>{children}</div>
 				</div>
 			</div>

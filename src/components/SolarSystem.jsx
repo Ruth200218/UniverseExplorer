@@ -1,19 +1,19 @@
 'use client';
 
-import * as THREE from 'three';
 import SceneInit from '../lib/SceneInit';
 import { useEffect, useRef, useState } from 'react';
 import Orbit from '../lib/Orbit';
+import { encodeBase64 } from 'bcryptjs';
 
-export default function SolarSystem({ planets, systemSolar }) {
+export default function SolarSystem({ solarSystemDB }) {
 	const canvasElement = useRef(null);
 	const [canvasPlane, setCanvasPlane] = useState(null);
-	const { starts } = systemSolar;
-
+	const [planets, setPlanets] = useState(null);
 
 	useEffect(() => {
 		if (canvasElement?.current && !canvasElement.current.classList.contains('canvas-init') && !canvasPlane) {
-
+			const { starts, planets: newPlanets } = solarSystemDB;
+			setPlanets([...newPlanets]);
 			const initScene = async () => {
 				const setStopOrbitRotation = (value) => (stopOrbitRotation = value);
 
@@ -27,14 +27,15 @@ export default function SolarSystem({ planets, systemSolar }) {
 					return orbSpeed;
 				}
 
-				const getPlanetRotationSpeed = (day) => {
-					const KmPerSeconds = (2 * Math.PI) / day;
+				const getPlanetRotationSpeed = (day, distance) => {
+					const secondsPerDay = day * 3600;
+					const KmPerSeconds = (2 * Math.PI * distance) / secondsPerDay;
 					return KmPerSeconds;
 				}
 
 				function animateRotation(object) {
-					const { day } = object.config;
-					object.mesh.rotation.y += getPlanetRotationSpeed(day) * 0.001;
+					const { day, distance } = object.config;
+					object.mesh.rotation.y += getPlanetRotationSpeed(day, distance) * 0.01;
 				}
 
 				function animateOrbitRotation(object) {
@@ -109,29 +110,28 @@ export default function SolarSystem({ planets, systemSolar }) {
 		return () => {
 			if (canvasPlane) {
 				const scene = canvasPlane.scene;
-				// first remove the scene
+
 				while (scene.children.length > 0) {
 					scene.remove(scene.children[0]);
 				}
-				// then dispose the scene
-				scene.dispose();
 
-				// remove the canvas
-				canvasElement.current.remove();
+				canvasPlane.renderer.dispose();
+				canvasPlane.controls.dispose();
 
-				// remove the canvas plane
+				canvasElement.current.classList.remove('canvas-init');
+
 				setCanvasPlane(null);
 			}
 		}
-	}, [planets]);
+	}, [solarSystemDB]);
 
 	return (
 		<div className='SolarSystem'>
-			<canvas ref={canvasElement} id='myThreeJsCanvas' />
+			<canvas ref={canvasElement} id='myThreeJsCanvas' key={encodeBase64(JSON.stringify(solarSystemDB))} />
 			<div id='planets-list'>
-				{planets.map((planet) => (
+				{planets?.map((planet, index) => (
 					<div
-						key={planet.name}
+						key={`planet-${planet.name}_${index}`}
 						id={planet.name}
 						onClick={function () {
 							canvasPlane.selectPlanet(planet.name);
