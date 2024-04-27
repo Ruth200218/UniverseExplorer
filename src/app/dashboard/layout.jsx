@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 
 import SideMenu from '../../components/SideMenu';
-import EditMenu from '../../components/EditMenu';
 
 const Layout = ({ children }) => {
 	const [isEditPage, setIsEditPage] = useState(false);

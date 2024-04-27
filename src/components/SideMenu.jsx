@@ -1,16 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import systemSolar from '../mocks/solar_system.json';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
 import { InvisibleBtn } from './Buttons';
 import { PrimaryBtn } from './Buttons';
+import EditMenu from './EditMenu';
 import { usePathname } from 'next/navigation';
 
-const SideMenu = ({ setIsEditPage }) => {
+const SideMenu = () => {
 	const pathname = usePathname();
-	// console.log('pathname', pathname);
+	const isEdit = pathname.endsWith('/edit') || pathname.endsWith('/new');
+
+	const [solarSystemDB, setSolarSystemDB] = useState(systemSolar);
+	const [isEditPage, setIsEditPage] = useState(false);
+
+	const handleSystemChange = (newSystem) => {
+		setSolarSystemDB({ ...newSystem.formData });
+	};
 
 	return (
 		<>
@@ -46,6 +55,7 @@ const SideMenu = ({ setIsEditPage }) => {
 					</Link>
 				</li>
 			</ul>
+			{isEdit && <EditMenu setIsEditPage={setIsEditPage} handleChange={handleSystemChange} schema={systemSolar} />}
 			<ul className='buttons flex'>
 				<li style={{ marginRight: '1rem' }}>
 					<InvisibleBtn func={() => signOut()}>SignOut</InvisibleBtn>
